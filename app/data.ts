@@ -1,0 +1,195 @@
+import {
+  ArrowUpRight,
+  Blocks,
+  GalleryHorizontal,
+  Handshake,
+  Home,
+  Layers3,
+  MessageCircle,
+  Paintbrush,
+  PanelTop,
+  Ruler,
+  Sparkles,
+  Utensils,
+} from "lucide-react";
+
+export const images = {
+  hero: "/images/hero-kitchen.png",
+  portfolioKitchen: "/images/portfolio-taupe-kitchen.png",
+  beforeKitchen: "/images/before-kitchen.png",
+  afterKitchen: "/images/after-kitchen.png",
+  lounge: "/images/lounge-shelving.png",
+  detail: "/images/cabinet-detail.png",
+  dining: "/images/dining-transition.png",
+};
+
+export const services = [
+  {
+    title: "Custom Cabinets",
+    copy: "Made to fit your space, your routine, and the way your home actually works.",
+    icon: PanelTop,
+  },
+  {
+    title: "Kitchen Furniture",
+    copy: "Islands, counters, breakfast pieces, and fitted storage with an interior-led finish.",
+    icon: Utensils,
+  },
+  {
+    title: "Shelving and Display",
+    copy: "Open, closed, decorative, or practical shelving designed to make storage feel intentional.",
+    icon: Layers3,
+  },
+  {
+    title: "Full Interior Direction",
+    copy: "When the kitchen becomes the first chapter of a more complete home transformation.",
+    icon: Home,
+  },
+];
+
+export const process = [
+  {
+    title: "Consult",
+    copy: "We understand the space, budget, family rhythm, storage needs, and design appetite.",
+    icon: MessageCircle,
+  },
+  {
+    title: "Design",
+    copy: "We shape the layout, cabinet language, materials, lighting, and functional detail.",
+    icon: Ruler,
+  },
+  {
+    title: "Craft",
+    copy: "Your kitchen elements are produced with attention to proportion, finish, and daily use.",
+    icon: Paintbrush,
+  },
+  {
+    title: "Install",
+    copy: "The work comes together on site with the calm precision a premium home deserves.",
+    icon: Handshake,
+  },
+];
+
+export const portfolio = [
+  {
+    slug: "taupe-kitchen",
+    title: "Taupe Kitchen",
+    category: "Cabinets and pantry",
+    image: images.portfolioKitchen,
+    beforeImage: images.beforeKitchen,
+    afterImage: images.portfolioKitchen,
+    copy: "A cabinet-first renovation with fluted glass, warm lighting, and storage that disappears into the room.",
+    location: "Karachi apartment",
+    scope: ["Cabinet redesign", "Pantry wall", "Floating shelves", "Task lighting"],
+    budget: "Premium kitchen package",
+    year: "2026",
+    story:
+      "The brief was simple: make storage feel elegant. The result uses taupe cabinet fronts, fluted glass, walnut shelving, and warmer lighting so everyday kitchen objects feel composed instead of exposed.",
+    notes: [
+      "Tall pantry storage was treated as an architectural wall.",
+      "Warm shelf lighting gives display areas a softer evening mood.",
+      "Matte finishes reduce visual clutter in a busy family kitchen.",
+    ],
+    palette: ["Taupe", "Walnut", "Brass", "Ivory stone"],
+    gallery: [images.portfolioKitchen, images.detail, images.dining],
+    icon: ArrowUpRight,
+  },
+  {
+    slug: "compact-renewal",
+    title: "Compact Renewal",
+    category: "Before and after",
+    image: images.afterKitchen,
+    beforeImage: images.beforeKitchen,
+    afterImage: images.afterKitchen,
+    copy: "A small kitchen reset with walnut, cream fronts, practical shelving, and a calmer daily flow.",
+    location: "Karachi family home",
+    scope: ["Compact layout", "Custom cabinets", "Open shelving", "Integrated appliances"],
+    budget: "Starting from 1 lac PKR",
+    year: "2026",
+    story:
+      "This project proves that a better kitchen is not always about gaining space. We used the same compact footprint and changed the rhythm, storage logic, and material tone so the room felt calmer from the doorway.",
+    notes: [
+      "Cream lower fronts keep the narrow room visually open.",
+      "Walnut zones add warmth without making the kitchen heavy.",
+      "Open shelving was limited to useful display, not visual noise.",
+    ],
+    palette: ["Cream", "Walnut", "Black trim", "Warm stone"],
+    gallery: [images.beforeKitchen, images.afterKitchen, images.detail],
+    icon: Sparkles,
+  },
+  {
+    slug: "display-lounge",
+    title: "Display Lounge",
+    category: "Full interiors",
+    image: images.lounge,
+    beforeImage: images.beforeKitchen,
+    afterImage: images.lounge,
+    copy: "Custom shelving, furniture placement, and collected objects for a room with presence.",
+    location: "Karachi residence",
+    scope: ["Display shelving", "Furniture direction", "Object styling", "Wall storage"],
+    budget: "Interior direction package",
+    year: "2026",
+    story:
+      "The room needed confidence without becoming formal. A custom wall system gave the lounge structure, while ceramics, books, low seating, and a sculptural chair made it feel collected rather than decorated.",
+    notes: [
+      "The shelving wall holds storage, art, books, and display in one gesture.",
+      "Low contrast upholstery keeps the room soft and residential.",
+      "Objects were placed with breathing room so the wall does not feel crowded.",
+    ],
+    palette: ["Ivory", "Walnut", "Olive", "Rust"],
+    gallery: [images.lounge, images.dining, images.detail],
+    icon: GalleryHorizontal,
+  },
+  {
+    slug: "dining-transition",
+    title: "Dining Transition",
+    category: "Kitchen to living",
+    image: images.dining,
+    beforeImage: images.beforeKitchen,
+    afterImage: images.dining,
+    copy: "A warm dining space that visually connects custom storage, shelving, and the kitchen beyond.",
+    location: "Karachi villa floor",
+    scope: ["Dining composition", "Sideboard", "Shelving", "Lighting mood"],
+    budget: "Bespoke interior package",
+    year: "2026",
+    story:
+      "This space was treated as a transition, not a separate dining zone. Shelving, sideboard storage, pendant lighting, and the view into the kitchen were aligned so the rooms speak the same language.",
+    notes: [
+      "Pendant placement anchors the table without blocking the kitchen view.",
+      "The sideboard doubles as storage and a display surface.",
+      "Warm lighting connects dining, shelving, and kitchen cabinetry.",
+    ],
+    palette: ["Charcoal", "Walnut", "Deep green", "Muted brass"],
+    gallery: [images.dining, images.hero, images.portfolioKitchen],
+    icon: Blocks,
+  },
+  {
+    slug: "cabinet-detail",
+    title: "Cabinet Detail",
+    category: "Craft and finish",
+    image: images.detail,
+    beforeImage: images.beforeKitchen,
+    afterImage: images.detail,
+    copy: "Fluted wood, stone edges, slim handles, and drawer interiors made to be noticed up close.",
+    location: "Kitchen detail study",
+    scope: ["Drawer planning", "Hardware", "Stone edge", "Fluted fronts"],
+    budget: "Detail upgrade package",
+    year: "2026",
+    story:
+      "The smallest details often decide whether a kitchen feels premium. This study focuses on touch points: the pull of a drawer, the weight of stone, the shadow between grooves, and the quiet order inside storage.",
+    notes: [
+      "Fluted fronts add shadow and rhythm without adding ornament.",
+      "Slim black handles sharpen the warm wood tone.",
+      "Drawer interiors were considered as part of the finished experience.",
+    ],
+    palette: ["Walnut", "Black", "Honed stone", "Warm light"],
+    gallery: [images.detail, images.portfolioKitchen, images.afterKitchen],
+    icon: PanelTop,
+  },
+];
+
+export const stats = [
+  ["1 lac+", "Entry projects"],
+  ["Karachi", "Designed locally"],
+  ["Premium", "Materials and finish"],
+  ["Interior led", "Not just carpentry"],
+];
