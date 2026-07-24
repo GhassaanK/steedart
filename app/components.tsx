@@ -9,6 +9,7 @@ import {
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa6";
 import { site } from "@/site";
 import { portfolio, services } from "./data";
+import { MobileMenu } from "./MobileMenu";
 
 export function Header() {
   return (
@@ -36,19 +37,13 @@ export function Header() {
         </nav>
         <Link
           href="/contact"
-          className="inline-flex h-10 items-center gap-2 rounded-full bg-neutral-950 px-4 text-sm font-extrabold text-white transition hover:bg-[#6d4b34]"
+          className="hidden h-10 items-center gap-2 rounded-full bg-neutral-950 px-4 text-sm font-extrabold text-white transition hover:bg-[#6d4b34] lg:inline-flex"
         >
           <MessageCircle size={16} />
           Consult
         </Link>
+        <MobileMenu />
       </div>
-      <nav className="mt-4 flex gap-2 overflow-x-auto pb-1 text-sm font-extrabold text-neutral-700 lg:hidden">
-        {site.nav.map((item) => (
-          <Link key={`mobile-${item.href}`} href={item.href} className="surface-card shrink-0 rounded-full px-4 py-2">
-            {item.label}
-          </Link>
-        ))}
-      </nav>
     </header>
   );
 }
