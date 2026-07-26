@@ -12,11 +12,23 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Steed Art | Kitchen Renovation and Interior Design in Karachi",
+    default: "Steed Art | Custom Kitchen Renovation & Cabinets in Karachi",
     template: "%s | Steed Art",
   },
   description:
-    "Steed Art designs premium kitchen renovations, custom cabinets, shelving, kitchen furniture, and interior spaces for refined Karachi homes.",
+    "Premium kitchen renovation, custom cabinets, and interior design for Karachi homes. See the Steed Art approach and book a free consultation.",
+  keywords: [
+    "kitchen renovation Karachi",
+    "custom kitchen cabinets Karachi",
+    "interior design studio Karachi",
+    "kitchen furniture Karachi",
+    "premium cabinetry Karachi",
+    "DHA Karachi interior design",
+    "Clifton Karachi interior design",
+  ],
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: [
       {
@@ -34,9 +46,9 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Steed Art",
+    title: "Steed Art | Custom Kitchen Renovation & Cabinets in Karachi",
     description:
-      "Kitchen renovation and interior design for refined Karachi homes.",
+      "Premium kitchen renovation, custom cabinets, and interior design for Karachi homes.",
     url: site.url,
     siteName: site.name,
     images: [{ url: "/images/hero-kitchen.png", width: 1792, height: 1024 }],
@@ -50,9 +62,57 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    name: site.name,
+    url: site.url,
+    email: site.email,
+    telephone: site.phone,
+    image: `${site.url}/steedartlogo.png`,
+    logo: `${site.url}/steedartlogo.png`,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Karachi",
+      addressCountry: "PK",
+    },
+    areaServed: ["Karachi", "DHA Karachi", "Clifton Karachi", "Bahria Town Karachi", "PECHS"],
+    priceRange: "PKR 100,000+",
+    sameAs: [site.socials.facebook, site.socials.instagram],
+    makesOffer: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Kitchen renovation in Karachi",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Custom kitchen cabinets",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Interior design",
+        },
+      },
+    ],
+  };
+
   return (
     <html lang="en" className={`${manrope.variable} antialiased`}>
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

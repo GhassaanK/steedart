@@ -3,7 +3,7 @@
 import { onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { database } from "./firebase";
-import { cmsPaths, type CmsProject, type Enquiry, type GalleryImage, objectToArray, type SiteSettings } from "./cms";
+import { cmsPaths, type CmsProject, type CmsReview, type Enquiry, type GalleryImage, objectToArray, type SiteSettings } from "./cms";
 import { fallbackSettings } from "./fallback-cms";
 
 export function useCmsProjects() {
@@ -46,6 +46,24 @@ export function useCmsEnquiries() {
   }, []);
 
   return enquiries;
+}
+
+export function useCmsReviews() {
+  const [reviews, setReviews] = useState<CmsReview[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    return onValue(ref(database, cmsPaths.reviews), (snapshot) => {
+      setReviews(
+        objectToArray<CmsReview>(snapshot.val()).sort(
+          (a, b) => a.order - b.order,
+        ),
+      );
+      setIsLoading(false);
+    });
+  }, []);
+
+  return { reviews, isLoading };
 }
 
 export function useCmsSettings() {

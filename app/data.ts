@@ -28,38 +28,50 @@ export const services = [
     title: "Custom Cabinets",
     copy: "Made to fit your space, your routine, and the way your home actually works.",
     icon: PanelTop,
+    href: "/#kitchen-estimate",
+    action: "Estimate cabinetry",
+    includes: ["Door and frame planning", "Finish selection", "Storage layout"],
   },
   {
     title: "Kitchen Furniture",
-    copy: "Islands, counters, breakfast pieces, and fitted storage with an interior-led finish.",
+    copy: "Islands, counters, breakfast pieces, and fitted storage, finished like the rest of the room.",
     icon: Utensils,
+    href: "/contact#project-enquiry",
+    action: "Discuss your kitchen",
+    includes: ["Island and counter design", "Fitted storage", "Material coordination"],
   },
   {
     title: "Shelving and Display",
-    copy: "Open, closed, decorative, or practical shelving designed to make storage feel intentional.",
+    copy: "Open, closed, decorative, or practical shelving that makes storage feel intentional.",
     icon: Layers3,
+    href: "/portfolio",
+    action: "See related work",
+    includes: ["Open and closed storage", "Display rhythm", "Integrated lighting"],
   },
   {
     title: "Full Interior Direction",
-    copy: "When the kitchen becomes the first chapter of a more complete home transformation.",
+    copy: "When the kitchen becomes the first chapter of a bigger home transformation.",
     icon: Home,
+    href: "/contact#project-enquiry",
+    action: "Plan your interior",
+    includes: ["Room-to-room direction", "Furniture planning", "Material continuity"],
   },
 ];
 
 export const process = [
   {
     title: "Consult",
-    copy: "We understand the space, budget, family rhythm, storage needs, and design appetite.",
+    copy: "We start with your space, budget, family rhythm, storage needs, and design taste.",
     icon: MessageCircle,
   },
   {
     title: "Design",
-    copy: "We shape the layout, cabinet language, materials, lighting, and functional detail.",
+    copy: "We shape the layout, cabinet language, materials, lighting, and every functional detail.",
     icon: Ruler,
   },
   {
     title: "Craft",
-    copy: "Your kitchen elements are produced with attention to proportion, finish, and daily use.",
+    copy: "Your kitchen elements are built with real attention to proportion, finish, and daily use.",
     icon: Paintbrush,
   },
   {
@@ -188,8 +200,8 @@ export const portfolio = [
 ];
 
 export const stats = [
-  ["1 lac+", "Entry projects"],
-  ["Karachi", "Designed locally"],
+  ["1 lac+", "Starting price, entry kitchens"],
+  ["Karachi", "Designed and built locally"],
   ["Premium", "Materials and finish"],
-  ["Interior led", "Not just carpentry"],
+  ["Interior-Led", "Not just carpentry"],
 ];

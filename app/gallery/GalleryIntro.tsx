@@ -15,12 +15,20 @@ export function GalleryIntro() {
           </>
         ) : (
           <>
-            <h1 className="text-5xl font-extrabold leading-none sm:text-7xl">
-              {settings.galleryHeading}
-            </h1>
-            <p className="max-w-sm text-sm font-medium leading-7 text-neutral-500">
-              {settings.galleryCopy}
-            </p>
+            <div>
+              <p className="mb-4 text-sm font-extrabold uppercase tracking-[0.24em] text-[#76563f]">In the studio</p>
+              <h1 className="text-5xl font-extrabold leading-none sm:text-7xl">
+                {settings.galleryHeading}
+              </h1>
+            </div>
+            <div className="max-w-sm">
+              <p className="text-sm font-medium leading-7 text-neutral-500">
+                {settings.galleryCopy}
+              </p>
+              <a href="/contact" className="mt-5 inline-flex h-11 items-center rounded-full bg-black px-5 text-sm font-extrabold text-white">
+                Book a consult
+              </a>
+            </div>
           </>
         )}
       </div>

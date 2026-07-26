@@ -4,9 +4,18 @@ import { PageShell } from "../components";
 import { images, process } from "../data";
 
 export const metadata = {
-  title: "About Us",
+  title: "About Steed Art | Kitchen & Interior Design Studio, Karachi",
   description:
-    "Learn about Steed Art, a Karachi-based interior design studio focused on premium kitchen renovations and refined home interiors.",
+    "Steed Art is a Karachi interior design studio built around one offer: kitchen renovations with real design thinking, starting from as low as 1 lac PKR.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About Steed Art | Kitchen & Interior Design Studio, Karachi",
+    description:
+      "Steed Art is a Karachi interior design studio built around kitchen renovations with real design thinking.",
+    url: "/about",
+  },
 };
 
 export default function AboutPage() {
@@ -28,20 +37,20 @@ export default function AboutPage() {
             </div>
             <div className="grid gap-5 text-sm font-medium leading-7 text-neutral-600">
               <p>
-                Steed Art is a Karachi-based interior design studio for
-                homeowners who want their spaces to feel composed, premium,
-                personal, and deeply usable.
+                Steed Art is a Karachi interior design studio for homeowners
+                who want their homes to feel composed, premium, personal, and
+                genuinely easy to live in.
               </p>
               <p>
                 We are not interested in empty minimalism. A Steed Art home has
-                proportion, storage, craft, warmth, and little moments that make
+                proportion, storage, craft, warmth, and small moments that make
                 people look twice.
               </p>
               <p>
-                Kitchen renovation is our focused first offer, starting from
-                {` ${site.startingPrice}`}. It lets clients experience our
-                thinking through one high-impact room before moving into fuller
-                interior work.
+                Kitchen renovation is our focused first offer, starting from as
+                low as {` ${site.startingPrice}`}. It lets you experience how we
+                think through one high-impact room, before moving into the rest
+                of the home.
               </p>
             </div>
           </div>
@@ -54,10 +63,16 @@ export default function AboutPage() {
               A room should reveal its thought slowly.
             </h2>
           </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {["Nothing should feel accidental.", "Storage should look designed.", "Premium should still feel human."].map((line) => (
-              <div key={line} className="surface-card rounded-[18px] p-6">
-                <p className="text-3xl font-extrabold leading-tight">{line}</p>
+          <div className="grid border-t border-neutral-300 md:grid-cols-3">
+            {["Nothing should feel accidental.", "Storage should look designed.", "Premium should still feel human."].map((line, index) => (
+              <div
+                key={line}
+                className="border-b border-neutral-300 py-7 md:border-b-0 md:border-r md:px-7 md:first:pl-0 md:last:border-r-0 md:last:pr-0"
+              >
+                <p className="text-xs font-extrabold text-[#76563f]">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <p className="mt-8 text-3xl font-extrabold leading-tight">{line}</p>
               </div>
             ))}
           </div>

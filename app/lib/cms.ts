@@ -48,6 +48,17 @@ export type Enquiry = {
   status?: "new" | "read" | "archived";
 };
 
+export type CmsReview = {
+  id: string;
+  quote: string;
+  name: string;
+  location: string;
+  project: string;
+  rating: number;
+  order: number;
+  published: boolean;
+};
+
 export type SiteSettings = {
   email: string;
   phone: string;
@@ -66,6 +77,7 @@ export const cmsPaths = {
   projects: "cms/projects",
   gallery: "cms/gallery",
   enquiries: "cms/enquiries",
+  reviews: "cms/reviews",
   settings: "cms/settings",
 };
 
@@ -117,6 +129,20 @@ export async function saveEnquiry(enquiry: Omit<Enquiry, "id" | "createdAt" | "s
 
 export async function updateEnquiryStatus(id: string, status: Enquiry["status"]) {
   await update(ref(database, `${cmsPaths.enquiries}/${id}`), { status });
+}
+
+export async function saveReview(review: CmsReview) {
+  const reviewRef = review.id
+    ? ref(database, `${cmsPaths.reviews}/${review.id}`)
+    : push(ref(database, cmsPaths.reviews));
+  const id = review.id || reviewRef.key;
+  if (!id) throw new Error("Could not create review id.");
+  await set(reviewRef, { ...review, id });
+  return id;
+}
+
+export async function deleteReview(id: string) {
+  await remove(ref(database, `${cmsPaths.reviews}/${id}`));
 }
 
 export async function saveSettings(settings: SiteSettings) {

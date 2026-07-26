@@ -59,6 +59,9 @@ export function Footer() {
             Start with your kitchen. Build trust through one beautiful project.
             Then let the rest of the home follow naturally.
           </p>
+          <p className="mt-5 max-w-lg text-sm font-semibold leading-7 text-white/45">
+            Serving DHA, Clifton, Bahria Town, PECHS, and homes across Karachi.
+          </p>
           <FooterContactActions />
         </div>
         <div className="grid gap-9 sm:grid-cols-3">
@@ -139,6 +142,8 @@ export function ImageCard({
   copy,
   notch = true,
   className = "",
+  href,
+  actionLabel,
 }: {
   src: string;
   alt: string;
@@ -147,9 +152,11 @@ export function ImageCard({
   copy?: string;
   notch?: boolean;
   className?: string;
+  href?: string;
+  actionLabel?: string;
 }) {
-  return (
-    <article className={`${notch ? "card-notch" : ""} group relative overflow-hidden rounded-[16px] bg-neutral-900 ${className}`}>
+  const card = (
+    <article className={`${notch ? "card-notch" : ""} group relative h-full overflow-hidden rounded-[16px] bg-neutral-900 ${className}`}>
       <Image src={src} alt={alt} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/68 via-black/10 to-transparent" />
       <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-extrabold text-neutral-900 backdrop-blur">
@@ -159,6 +166,11 @@ export function ImageCard({
         <div>
           <h3 className="max-w-[calc(100%-68px)] text-2xl font-extrabold leading-tight tracking-normal">{title}</h3>
           {copy ? <p className="mt-2 max-w-[220px] text-xs font-semibold leading-5 text-white/72">{copy}</p> : null}
+          {actionLabel ? (
+            <p className="mt-3 text-xs font-extrabold uppercase tracking-[0.16em] text-white/72">
+              {actionLabel}
+            </p>
+          ) : null}
         </div>
         {notch ? (
           <span className="notch-button">
@@ -167,6 +179,18 @@ export function ImageCard({
         ) : null}
       </div>
     </article>
+  );
+
+  return href ? (
+    <Link
+      href={href}
+      className={`block rounded-[16px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-950 ${className}`}
+      aria-label={`${actionLabel ?? "Explore"}: ${title}`}
+    >
+      {card}
+    </Link>
+  ) : (
+    card
   );
 }
 

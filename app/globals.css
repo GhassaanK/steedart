@@ -63,6 +63,15 @@ body {
   background: linear-gradient(135deg, #16120f 0%, #2d221b 100%);
 }
 
+.before-after-frame:has(.before-after-range:focus-visible) .before-after-handle {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
+.before-after-range {
+  touch-action: pan-y;
+}
+
 a {
   text-decoration: none;
 }

@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local source file exceeds GitHub's 100 MB per-file limit.
+/public/catalogues/Lamination Series Catalogue High Res Volume - 21.pdf

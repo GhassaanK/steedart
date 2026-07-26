@@ -5,8 +5,9 @@ import { Mail } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 import { saveEnquiry } from "../lib/cms";
 import { useCmsSettings } from "../lib/useCmsData";
+import type { KitchenEstimate } from "../KitchenCostCalculator";
 
-export function ContactForm() {
+export function ContactForm({ estimate }: { estimate?: KitchenEstimate | null }) {
   const { settings, isLoading } = useCmsSettings();
   const [form, setForm] = useState({ name: "", phone: "", email: "", budget: "", note: "" });
   const [status, setStatus] = useState("");
@@ -17,7 +18,10 @@ export function ContactForm() {
     setIsSaving(true);
     setStatus("");
     try {
-      await saveEnquiry(form);
+      await saveEnquiry({
+        ...form,
+        note: estimate ? `${form.note}\n\nCalculator estimate:\n${estimate.message}` : form.note,
+      });
       setForm({ name: "", phone: "", email: "", budget: "", note: "" });
       setStatus("Your enquiry has been sent.");
     } catch {
@@ -28,7 +32,7 @@ export function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="surface-card rounded-[22px] p-6 sm:p-8 lg:p-10">
+    <form id="project-enquiry" onSubmit={handleSubmit} className="surface-card scroll-mt-6 rounded-[22px] p-6 sm:p-8 lg:p-10">
       <p className="text-sm font-extrabold uppercase tracking-[0.24em] text-[#76563f]">Project enquiry</p>
       <h2 className="mt-5 max-w-lg text-4xl font-extrabold leading-tight">
         Tell us what is not working, what you want changed, and what level of finish you have in mind.
@@ -39,6 +43,9 @@ export function ContactForm() {
         <Field label="Email" value={form.email} placeholder="you@example.com" onChange={(value) => setForm((current) => ({ ...current, email: value }))} />
         <Field label="Project budget" value={form.budget} placeholder="1 lac PKR plus" onChange={(value) => setForm((current) => ({ ...current, budget: value }))} />
       </div>
+      <p className="mt-3 text-sm font-semibold text-neutral-500">
+        Roughly is fine. We will confirm scope on the call.
+      </p>
       <label className="mt-4 block">
         <span className="text-sm font-extrabold text-neutral-700">Project note</span>
         <textarea required value={form.note} onChange={(event) => setForm((current) => ({ ...current, note: event.target.value }))} className="mt-2 min-h-44 w-full rounded-[14px] border border-black/10 bg-white p-4 text-sm font-medium outline-none transition focus:border-neutral-950" placeholder="Kitchen cabinets, shelving, furniture, full renovation, or full interior direction" />

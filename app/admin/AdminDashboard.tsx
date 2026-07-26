@@ -4,22 +4,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
-import { ImagePlus, Loader2, LogOut, Save, Trash2 } from "lucide-react";
+import { ImagePlus, Loader2, LogOut, Save, Star, Trash2 } from "lucide-react";
 import { auth } from "../lib/firebase";
 import {
   deleteGalleryImage,
   deleteProject,
+  deleteReview,
   saveGalleryImage,
   saveProject,
+  saveReview,
   saveSettings,
   updateGalleryImageLabel,
   updateEnquiryStatus,
   type CmsProject,
+  type CmsReview,
   type GalleryImage,
   type SiteSettings,
 } from "../lib/cms";
 import { uploadToCloudinary } from "../lib/cloudinary";
-import { useCmsEnquiries, useCmsGallery, useCmsProjects, useCmsSettings } from "../lib/useCmsData";
+import { useCmsEnquiries, useCmsGallery, useCmsProjects, useCmsReviews, useCmsSettings } from "../lib/useCmsData";
 
 const blankProject: CmsProject = {
   id: "",
@@ -40,7 +43,18 @@ const blankProject: CmsProject = {
   order: 1,
 };
 
-const tabs = ["Projects", "Gallery", "Enquiries", "Settings"] as const;
+const blankReview: CmsReview = {
+  id: "",
+  quote: "",
+  name: "",
+  location: "",
+  project: "",
+  rating: 5,
+  order: 1,
+  published: true,
+};
+
+const tabs = ["Projects", "Gallery", "Reviews", "Enquiries", "Settings"] as const;
 
 export function AdminDashboard() {
   const [user, setUser] = useState<User | null>(null);
@@ -49,6 +63,7 @@ export function AdminDashboard() {
   const { projects } = useCmsProjects();
   const { gallery } = useCmsGallery();
   const enquiries = useCmsEnquiries();
+  const { reviews } = useCmsReviews();
   const { settings } = useCmsSettings();
 
   useEffect(() => {
@@ -100,6 +115,7 @@ export function AdminDashboard() {
       <section className="mx-auto max-w-[1360px] px-5 pb-16 sm:px-8">
         {activeTab === "Projects" ? <ProjectsPanel projects={projects} settings={settings} /> : null}
         {activeTab === "Gallery" ? <GalleryPanel gallery={gallery} settings={settings} /> : null}
+        {activeTab === "Reviews" ? <ReviewsPanel reviews={reviews} /> : null}
         {activeTab === "Enquiries" ? <EnquiriesPanel enquiries={enquiries} /> : null}
         {activeTab === "Settings" ? <SettingsPanel key={JSON.stringify(settings)} settings={settings} /> : null}
       </section>
@@ -396,6 +412,206 @@ function GalleryPanel({ gallery, settings }: { gallery: GalleryImage[]; settings
         )}
       </div>
     </div>
+  );
+}
+
+function ReviewsPanel({ reviews }: { reviews: CmsReview[] }) {
+  const [selectedId, setSelectedId] = useState("");
+  const selectedReview =
+    reviews.find((review) => review.id === selectedId) ?? blankReview;
+
+  return (
+    <div className="grid gap-4 lg:grid-cols-[0.42fr_0.58fr]">
+      <div className="surface-card rounded-[22px] p-5">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#76563f]">
+              Social proof
+            </p>
+            <h1 className="mt-2 text-4xl font-extrabold">Reviews</h1>
+          </div>
+          <Star size={24} />
+        </div>
+        <p className="mt-4 text-sm font-medium leading-6 text-neutral-600">
+          Publish only genuine client words. Unpublished reviews stay in the
+          CMS and never appear on the website.
+        </p>
+        <button
+          type="button"
+          onClick={() => setSelectedId("")}
+          className="mt-5 w-full rounded-[16px] bg-white p-4 text-left text-sm font-extrabold transition hover:-translate-y-0.5 hover:bg-[#faf7f3] hover:shadow-md"
+        >
+          New review
+        </button>
+        <div className="mt-3 grid gap-2">
+          {reviews.length ? (
+            reviews.map((review) => (
+              <button
+                key={review.id}
+                type="button"
+                onClick={() => setSelectedId(review.id)}
+                className={`rounded-[16px] p-4 text-left transition hover:-translate-y-0.5 hover:shadow-md ${
+                  selectedId === review.id
+                    ? "bg-black text-white"
+                    : "bg-white hover:bg-[#faf7f3]"
+                }`}
+              >
+                <span className="flex items-center justify-between gap-3">
+                  <span className="font-extrabold">
+                    {review.name || "Unnamed client"}
+                  </span>
+                  <span className="text-[10px] font-extrabold uppercase tracking-[0.16em] opacity-55">
+                    {review.published ? "Published" : "Draft"}
+                  </span>
+                </span>
+                <span className="mt-2 block line-clamp-2 text-sm leading-5 opacity-70">
+                  {review.quote || "No review text yet."}
+                </span>
+              </button>
+            ))
+          ) : (
+            <p className="rounded-[16px] bg-white p-4 text-sm font-extrabold text-neutral-500">
+              No reviews added yet.
+            </p>
+          )}
+        </div>
+      </div>
+      <ReviewEditor
+        key={selectedReview.id || "new"}
+        review={selectedReview}
+      />
+    </div>
+  );
+}
+
+function ReviewEditor({ review }: { review: CmsReview }) {
+  const [draft, setDraft] = useState<CmsReview>(review);
+  const [ratingText, setRatingText] = useState(String(review.rating || 5));
+  const [orderText, setOrderText] = useState(String(review.order || 1));
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [notice, setNotice] = useState("");
+
+  const setField = <K extends keyof CmsReview>(
+    field: K,
+    value: CmsReview[K],
+  ) => {
+    setDraft((current) => ({ ...current, [field]: value }));
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSaving(true);
+    setNotice("");
+    try {
+      await saveReview({
+        ...draft,
+        rating: Math.min(5, Math.max(1, Number(ratingText) || 5)),
+        order: Number(orderText) || 1,
+      });
+      setNotice("Review saved.");
+    } catch {
+      setNotice("Review could not be saved. Please try again.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!draft.id) return;
+    setIsDeleting(true);
+    setNotice("");
+    try {
+      await deleteReview(draft.id);
+      setNotice("Review deleted.");
+    } catch {
+      setNotice("Review could not be deleted. Please try again.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="surface-card rounded-[22px] p-5">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h2 className="text-3xl font-extrabold">
+          {draft.id ? "Edit review" : "New review"}
+        </h2>
+        <div className="flex gap-2">
+          {draft.id ? (
+            <button
+              type="button"
+              disabled={isDeleting}
+              onClick={handleDelete}
+              className="inline-flex items-center gap-2 rounded-full bg-red-50 px-4 py-2 text-sm font-extrabold text-red-700 transition hover:bg-red-100 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {isDeleting ? (
+                <Loader2 size={15} className="animate-spin" />
+              ) : (
+                <Trash2 size={15} />
+              )}
+              {isDeleting ? "Deleting" : "Delete"}
+            </button>
+          ) : null}
+          <button
+            type="submit"
+            disabled={isSaving}
+            className="inline-flex items-center gap-2 rounded-full bg-black px-4 py-2 text-sm font-extrabold text-white transition hover:bg-[#6d4b34] disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {isSaving ? (
+              <Loader2 size={15} className="animate-spin" />
+            ) : (
+              <Save size={15} />
+            )}
+            {isSaving ? "Saving" : "Save"}
+          </button>
+        </div>
+      </div>
+      {notice ? (
+        <p className="mt-4 rounded-[14px] bg-white p-3 text-sm font-extrabold text-neutral-700">
+          {notice}
+        </p>
+      ) : null}
+      <Textarea
+        label="Client review"
+        value={draft.quote}
+        onChange={(value) => setField("quote", value)}
+      />
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <Input
+          label="Client name"
+          value={draft.name}
+          onChange={(value) => setField("name", value)}
+        />
+        <Input
+          label="Location"
+          value={draft.location}
+          onChange={(value) => setField("location", value)}
+        />
+        <Input
+          label="Project type"
+          value={draft.project}
+          onChange={(value) => setField("project", value)}
+        />
+        <Input
+          label="Rating, 1 to 5"
+          value={ratingText}
+          onChange={setRatingText}
+        />
+        <Input label="Display order" value={orderText} onChange={setOrderText} />
+        <label className="flex min-h-12 items-center justify-between gap-4 rounded-[14px] bg-white px-4">
+          <span className="text-sm font-extrabold text-neutral-700">
+            Publish on website
+          </span>
+          <input
+            type="checkbox"
+            checked={draft.published}
+            onChange={(event) => setField("published", event.target.checked)}
+            className="h-5 w-5 accent-neutral-950"
+          />
+        </label>
+      </div>
+    </form>
   );
 }
 
