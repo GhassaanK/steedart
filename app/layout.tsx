@@ -17,6 +17,22 @@ export const metadata: Metadata = {
   },
   description:
     "Steed Art designs premium kitchen renovations, custom cabinets, shelving, kitchen furniture, and interior spaces for refined Karachi homes.",
+  icons: {
+    icon: [
+      {
+        url: "/steedartlogo.png",
+        sizes: "1000x1000",
+        type: "image/png",
+      },
+    ],
+    apple: [
+      {
+        url: "/steedartlogo.png",
+        sizes: "1000x1000",
+        type: "image/png",
+      },
+    ],
+  },
   openGraph: {
     title: "Steed Art",
     description:
