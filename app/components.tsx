@@ -2,14 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowUpRight,
-  Mail,
   MessageCircle,
-  Phone,
 } from "lucide-react";
-import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa6";
 import { site } from "@/site";
-import { portfolio, services } from "./data";
+import { services } from "./data";
+import { HomePortfolioPreview } from "./HomePortfolioPreview";
 import { MobileMenu } from "./MobileMenu";
+import { ContactStripLinks, FooterContactActions, FooterSocialLinks } from "./PublicSettings";
 
 export function Header() {
   return (
@@ -60,10 +59,7 @@ export function Footer() {
             Start with your kitchen. Build trust through one beautiful project.
             Then let the rest of the home follow naturally.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <ContactButton href={`mailto:${site.email}`} icon={<Mail size={17} />} label={site.email} />
-            <ContactButton href={site.socials.whatsapp} icon={<MessageCircle size={17} />} label="WhatsApp" />
-          </div>
+          <FooterContactActions />
         </div>
         <div className="grid gap-9 sm:grid-cols-3">
           <FooterColumn title="Studio" links={site.nav} />
@@ -73,17 +69,7 @@ export function Footer() {
           />
           <div>
             <h3 className="text-sm font-bold text-white">Social</h3>
-            <div className="mt-5 flex gap-3">
-              <IconLink href={site.socials.instagram} label="Instagram">
-                <FaInstagram size={18} />
-              </IconLink>
-              <IconLink href={site.socials.facebook} label="Facebook">
-                <FaFacebookF size={16} />
-              </IconLink>
-              <IconLink href={site.socials.whatsapp} label="WhatsApp">
-                <FaWhatsapp size={18} />
-              </IconLink>
-            </div>
+            <FooterSocialLinks />
             <p className="mt-8 text-5xl font-black tracking-tight">Steed Art</p>
           </div>
         </div>
@@ -110,46 +96,6 @@ function FooterColumn({
         ))}
       </div>
     </div>
-  );
-}
-
-function ContactButton({
-  href,
-  icon,
-  label,
-}: {
-  href: string;
-  icon: React.ReactNode;
-  label: string;
-}) {
-  return (
-    <a
-      href={href}
-      className="inline-flex h-11 items-center gap-2 rounded-full bg-white px-4 text-sm font-extrabold text-black transition hover:bg-[#d9c6b4]"
-    >
-      {icon}
-      {label}
-    </a>
-  );
-}
-
-function IconLink({
-  href,
-  label,
-  children,
-}: {
-  href: string;
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <a
-      href={href}
-      aria-label={label}
-      className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white hover:text-black"
-    >
-      {children}
-    </a>
   );
 }
 
@@ -226,40 +172,12 @@ export function ImageCard({
 
 export function PortfolioGrid() {
   return (
-    <div className="mx-auto grid max-w-[1360px] gap-4 px-5 pb-16 sm:px-8 md:grid-cols-3">
-      {portfolio.map((item, index) => (
-        <ImageCard
-          key={item.title}
-          src={item.image}
-          alt={item.title}
-          title={item.title}
-          label={item.category}
-          copy={item.copy}
-          className={index === 1 ? "min-h-[520px] md:row-span-2" : "min-h-[285px]"}
-        />
-      ))}
+    <div className="mx-auto max-w-[1360px] px-5 pb-16 sm:px-8">
+      <HomePortfolioPreview />
     </div>
   );
 }
 
 export function ContactStrip() {
-  return (
-    <section className="mx-auto grid max-w-[1360px] gap-4 px-5 py-12 sm:px-8 lg:grid-cols-3">
-      <a href={`mailto:${site.email}`} className="surface-card rounded-[18px] p-6 transition hover:bg-[#eadfd4]">
-        <Mail />
-        <p className="mt-8 text-sm text-neutral-500">Email</p>
-        <h3 className="mt-2 text-2xl font-extrabold">{site.email}</h3>
-      </a>
-      <a href={`tel:${site.phone}`} className="surface-card rounded-[18px] p-6 transition hover:bg-[#eadfd4]">
-        <Phone />
-        <p className="mt-8 text-sm text-neutral-500">Phone</p>
-        <h3 className="mt-2 text-2xl font-extrabold">{site.phone}</h3>
-      </a>
-      <a href={site.socials.whatsapp} className="rounded-[18px] bg-neutral-950 p-6 text-white transition hover:bg-[#6d4b34]">
-        <FaWhatsapp size={24} />
-        <p className="mt-8 text-sm text-white/55">WhatsApp</p>
-        <h3 className="mt-2 text-2xl font-extrabold">Start a conversation</h3>
-      </a>
-    </section>
-  );
+  return <ContactStripLinks />;
 }

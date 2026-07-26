@@ -4,12 +4,13 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "lucide-react";
 import type { CmsProject } from "../lib/cms";
-import { useCmsProjects } from "../lib/useCmsData";
+import { useCmsProjects, useCmsSettings } from "../lib/useCmsData";
 
 type Project = CmsProject;
 
 export function PortfolioExperience() {
-  const { projects } = useCmsProjects();
+  const { projects, isLoading } = useCmsProjects();
+  const { settings, isLoading: isSettingsLoading } = useCmsSettings();
   const [activeId, setActiveId] = useState<string | null>(null);
   const activeProject = useMemo(
     () => projects.find((project) => project.id === activeId) ?? null,
@@ -36,33 +37,40 @@ export function PortfolioExperience() {
     <>
       <section className="mx-auto grid max-w-[1360px] gap-10 px-5 py-10 sm:px-8 lg:grid-cols-[0.38fr_0.62fr]">
         <aside className="lg:sticky lg:top-8 lg:h-[calc(100vh-64px)]">
-          <div>
-            <p className="text-sm font-extrabold uppercase tracking-[0.24em] text-[#76563f]">
-              Portfolio
-            </p>
-            <h1 className="mt-6 max-w-xl text-6xl font-extrabold leading-[0.98] tracking-normal sm:text-8xl lg:text-7xl">
-              Project dossiers.
-            </h1>
-            <p className="mt-7 max-w-md text-sm font-medium leading-7 text-neutral-600">
-              Portfolio is where we explain the work. Gallery is for browsing
-              images. Open any dossier to see the brief, before state, after
-              result, scope, palette, and design notes.
-            </p>
-          </div>
-          <div className="mt-10 hidden overflow-hidden rounded-[22px] lg:block">
+          {isSettingsLoading ? <PortfolioIntroSkeleton /> : (
+            <div>
+              <p className="text-sm font-extrabold uppercase tracking-[0.24em] text-[#76563f]">{settings.portfolioKicker}</p>
+              <h1 className="mt-6 max-w-xl text-6xl font-extrabold leading-[0.98] tracking-normal sm:text-8xl lg:text-7xl">
+                {settings.portfolioHeading}
+              </h1>
+              <p className="mt-7 max-w-md text-sm font-medium leading-7 text-neutral-600">
+                {settings.portfolioCopy}
+              </p>
+            </div>
+          )}
+          {projects[0]?.image ? <div className="mt-10 hidden overflow-hidden rounded-[22px] lg:block">
             <Image src={projects[0].image} alt={projects[0].title} width={640} height={760} className="h-[42vh] w-full object-cover" priority />
-          </div>
+          </div> : null}
         </aside>
 
         <section className="grid gap-3">
-          {projects.map((project, index) => (
+          {isLoading ? (
+            <PortfolioSkeleton />
+          ) : projects.length ? projects.map((project, index) => (
             <ProjectIndexItem
               key={project.id}
               project={project}
               index={index}
               onOpen={() => setActiveId(project.id)}
             />
-          ))}
+          )) : (
+            <div className="rounded-[22px] bg-[#f4f0ea] p-8">
+              <h2 className="text-3xl font-extrabold">Couldn&apos;t find projects.</h2>
+              <p className="mt-3 text-sm font-medium leading-7 text-neutral-600">
+                Add portfolio projects from the CMS to show them here.
+              </p>
+            </div>
+          )}
         </section>
       </section>
 
@@ -75,6 +83,37 @@ export function PortfolioExperience() {
         />
       ) : null}
     </>
+  );
+}
+
+function PortfolioSkeleton() {
+  return (
+    <div className="grid gap-3">
+      {[0, 1, 2].map((item) => (
+        <div key={item} className="grid gap-4 rounded-[22px] bg-[#f4f0ea] p-3 md:grid-cols-[82px_1fr_210px_48px] md:items-center">
+          <span className="h-10 w-14 animate-pulse rounded-full bg-black/10" />
+          <span className="grid gap-3">
+            <span className="h-4 w-28 animate-pulse rounded-full bg-black/10" />
+            <span className="h-10 w-3/4 animate-pulse rounded-full bg-black/10" />
+            <span className="h-5 w-full animate-pulse rounded-full bg-black/10" />
+          </span>
+          <span className="h-28 animate-pulse rounded-[16px] bg-black/10" />
+          <span className="h-12 w-12 animate-pulse rounded-full bg-black/10" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function PortfolioIntroSkeleton() {
+  return (
+    <div>
+      <span className="block h-4 w-28 animate-pulse rounded-full bg-black/10" />
+      <span className="mt-6 block h-20 w-full max-w-xl animate-pulse rounded-[20px] bg-black/10 sm:h-28" />
+      <span className="mt-7 block h-5 w-full max-w-md animate-pulse rounded-full bg-black/10" />
+      <span className="mt-3 block h-5 w-4/5 max-w-md animate-pulse rounded-full bg-black/10" />
+      <span className="mt-3 block h-5 w-3/5 max-w-md animate-pulse rounded-full bg-black/10" />
+    </div>
   );
 }
 
@@ -104,10 +143,10 @@ function ProjectIndexItem({
       </div>
       <div className="grid grid-cols-2 overflow-hidden rounded-[16px]">
         <div className="relative h-28">
-          <Image src={project.beforeImage} alt={`${project.title} before`} fill className="object-cover grayscale" />
+          {project.beforeImage ? <Image src={project.beforeImage} alt={`${project.title} before`} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover grayscale" /> : <ImagePlaceholder label="Before" />}
         </div>
         <div className="relative h-28">
-          <Image src={project.afterImage} alt={`${project.title} after`} fill className="object-cover" />
+          {project.afterImage ? <Image src={project.afterImage} alt={`${project.title} after`} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" /> : <ImagePlaceholder label="After" />}
         </div>
       </div>
       <span className="grid h-12 w-12 place-items-center rounded-full bg-black text-white transition group-hover:rotate-45">
@@ -148,7 +187,7 @@ function ProjectModal({
         <div className="overflow-y-auto px-5 pb-6 sm:px-7">
           <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
             <div className="relative min-h-[520px] overflow-hidden rounded-[20px] bg-neutral-900">
-              <Image src={project.afterImage} alt={`${project.title} after renovation`} fill className="object-cover" />
+              {project.afterImage ? <Image src={project.afterImage} alt={`${project.title} after renovation`} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" /> : <ImagePlaceholder label="Couldn't find after image" />}
               <div className="absolute inset-0 bg-gradient-to-t from-black/62 via-transparent to-transparent" />
               <div className="absolute bottom-5 left-5 max-w-lg text-white">
                 <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-white/65">{project.location}</p>
@@ -168,7 +207,7 @@ function ProjectModal({
               </div>
 
               <div className="relative min-h-[260px] overflow-hidden rounded-[20px] bg-neutral-900">
-                <Image src={project.beforeImage} alt={`${project.title} before renovation`} fill className="object-cover" />
+                {project.beforeImage ? <Image src={project.beforeImage} alt={`${project.title} before renovation`} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" /> : <ImagePlaceholder label="Couldn't find before image" />}
                 <span className="absolute left-4 top-4 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-black">
                   Before
                 </span>
@@ -211,7 +250,7 @@ function ProjectModal({
           <div className="mt-4 grid gap-4 md:grid-cols-3">
             {project.gallery.map((src, index) => (
               <div key={`${project.id}-${src}-${index}`} className="relative min-h-[260px] overflow-hidden rounded-[18px] bg-neutral-900">
-                <Image src={src} alt={`${project.title} gallery image ${index + 1}`} fill className="object-cover" />
+                {src ? <Image src={src} alt={`${project.title} gallery image ${index + 1}`} fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover" /> : <ImagePlaceholder label="Couldn't find image" />}
               </div>
             ))}
           </div>
@@ -226,6 +265,14 @@ function ProjectModal({
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function ImagePlaceholder({ label }: { label: string }) {
+  return (
+    <div className="grid h-full min-h-full place-items-center bg-neutral-900 p-4 text-center text-xs font-extrabold uppercase tracking-[0.18em] text-white/45">
+      {label}
     </div>
   );
 }

@@ -1,7 +1,5 @@
-import { Mail, MapPin, Phone } from "lucide-react";
-import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa6";
-import { site } from "@/site";
 import { PageShell } from "../components";
+import { ContactDetails } from "../PublicSettings";
 import { ContactForm } from "./ContactForm";
 
 export const metadata = {
@@ -22,16 +20,7 @@ export default function ContactPage() {
                 Bring us the kitchen you keep thinking about.
               </h1>
             </div>
-            <div className="grid gap-5 text-sm font-medium text-white/68">
-              <p className="flex items-center gap-3"><MapPin size={18} /> {site.address}</p>
-              <p className="flex items-center gap-3"><Mail size={18} /> {site.email}</p>
-              <p className="flex items-center gap-3"><Phone size={18} /> {site.phone}</p>
-              <div className="flex gap-3 pt-4">
-                <a href={site.socials.instagram} aria-label="Instagram" className="grid h-11 w-11 place-items-center rounded-full bg-white text-black"><FaInstagram size={18} /></a>
-                <a href={site.socials.facebook} aria-label="Facebook" className="grid h-11 w-11 place-items-center rounded-full bg-white text-black"><FaFacebookF size={16} /></a>
-                <a href={site.socials.whatsapp} aria-label="WhatsApp" className="grid h-11 w-11 place-items-center rounded-full bg-white text-black"><FaWhatsapp size={18} /></a>
-              </div>
-            </div>
+            <ContactDetails />
           </div>
           <ContactForm />
         </section>

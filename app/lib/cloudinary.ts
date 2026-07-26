@@ -8,7 +8,8 @@ export async function uploadToCloudinary(file: File, folder = "steedart") {
   });
 
   if (!signatureResponse.ok) {
-    throw new Error("Could not create Cloudinary upload signature.");
+    const errorData = await signatureResponse.json().catch(() => null);
+    throw new Error(errorData?.error || "Could not create Cloudinary upload signature.");
   }
 
   const signatureData = await signatureResponse.json();
@@ -25,7 +26,8 @@ export async function uploadToCloudinary(file: File, folder = "steedart") {
   });
 
   if (!uploadResponse.ok) {
-    throw new Error("Cloudinary upload failed.");
+    const errorData = await uploadResponse.json().catch(() => null);
+    throw new Error(errorData?.error?.message || "Cloudinary upload failed.");
   }
 
   const uploaded = await uploadResponse.json();

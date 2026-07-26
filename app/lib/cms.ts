@@ -55,6 +55,11 @@ export type SiteSettings = {
   address: string;
   facebook: string;
   instagram: string;
+  galleryHeading: string;
+  galleryCopy: string;
+  portfolioKicker: string;
+  portfolioHeading: string;
+  portfolioCopy: string;
 };
 
 export const cmsPaths = {
@@ -91,6 +96,10 @@ export async function saveGalleryImage(image: GalleryImage) {
 
 export async function deleteGalleryImage(id: string) {
   await remove(ref(database, `${cmsPaths.gallery}/${id}`));
+}
+
+export async function updateGalleryImageLabel(id: string, alt: string) {
+  await update(ref(database, `${cmsPaths.gallery}/${id}`), { alt });
 }
 
 export async function saveEnquiry(enquiry: Omit<Enquiry, "id" | "createdAt" | "status">) {

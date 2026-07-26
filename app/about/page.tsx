@@ -15,7 +15,7 @@ export default function AboutPage() {
       <main>
         <section className="mx-auto grid max-w-[1360px] gap-4 px-5 py-8 sm:px-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="relative min-h-[680px] overflow-hidden rounded-[22px]">
-            <Image src={images.lounge} alt="Steed Art lounge interior" fill className="object-cover" priority />
+            <Image src={images.lounge} alt="Steed Art lounge interior" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" priority />
           </div>
           <div className="surface-card flex min-h-[680px] flex-col justify-between rounded-[22px] p-7 lg:p-10">
             <div>

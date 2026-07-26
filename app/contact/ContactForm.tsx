@@ -7,7 +7,7 @@ import { saveEnquiry } from "../lib/cms";
 import { useCmsSettings } from "../lib/useCmsData";
 
 export function ContactForm() {
-  const settings = useCmsSettings();
+  const { settings, isLoading } = useCmsSettings();
   const [form, setForm] = useState({ name: "", phone: "", email: "", budget: "", note: "" });
   const [status, setStatus] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -16,10 +16,15 @@ export function ContactForm() {
     event.preventDefault();
     setIsSaving(true);
     setStatus("");
-    await saveEnquiry(form);
-    setForm({ name: "", phone: "", email: "", budget: "", note: "" });
-    setStatus("Your enquiry has been sent.");
-    setIsSaving(false);
+    try {
+      await saveEnquiry(form);
+      setForm({ name: "", phone: "", email: "", budget: "", note: "" });
+      setStatus("Your enquiry has been sent.");
+    } catch {
+      setStatus("Something went wrong. Please try again.");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -40,12 +45,16 @@ export function ContactForm() {
       </label>
       {status ? <p className="mt-5 rounded-[14px] bg-white p-4 text-sm font-extrabold text-green-700">{status}</p> : null}
       <div className="mt-6 flex flex-wrap gap-3">
-        <button disabled={isSaving} type="submit" className="inline-flex h-12 items-center gap-2 rounded-full bg-neutral-950 px-6 text-sm font-extrabold text-white disabled:opacity-60">
-          {isSaving ? "Sending" : "Send enquiry"} <Mail size={17} />
+        <button disabled={isSaving} type="submit" className="inline-flex h-12 items-center gap-2 rounded-full bg-neutral-950 px-6 text-sm font-extrabold text-white transition hover:bg-[#6d4b34] disabled:cursor-not-allowed disabled:opacity-60">
+          {isSaving ? "Sending" : "Send enquiry"} <Mail size={17} className={isSaving ? "animate-pulse" : ""} />
         </button>
-        <a href={settings.whatsapp} className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-6 text-sm font-extrabold text-black">
-          WhatsApp <FaWhatsapp size={17} />
-        </a>
+        {isLoading ? (
+          <span className="h-12 w-36 animate-pulse rounded-full bg-white" />
+        ) : (
+          <a href={settings.whatsapp} className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-6 text-sm font-extrabold text-black transition hover:bg-[#eadfd4]">
+            WhatsApp <FaWhatsapp size={17} />
+          </a>
+        )}
       </div>
     </form>
   );

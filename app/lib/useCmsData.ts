@@ -4,16 +4,16 @@ import { onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { database } from "./firebase";
 import { cmsPaths, type CmsProject, type Enquiry, type GalleryImage, objectToArray, type SiteSettings } from "./cms";
-import { fallbackGallery, fallbackProjects, fallbackSettings } from "./fallback-cms";
+import { fallbackSettings } from "./fallback-cms";
 
 export function useCmsProjects() {
-  const [projects, setProjects] = useState<CmsProject[]>(fallbackProjects);
+  const [projects, setProjects] = useState<CmsProject[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     return onValue(ref(database, cmsPaths.projects), (snapshot) => {
       const nextProjects = objectToArray<CmsProject>(snapshot.val()).sort((a, b) => a.order - b.order);
-      setProjects(nextProjects.length ? nextProjects : fallbackProjects);
+      setProjects(nextProjects);
       setIsLoading(false);
     });
   }, []);
@@ -22,13 +22,13 @@ export function useCmsProjects() {
 }
 
 export function useCmsGallery() {
-  const [gallery, setGallery] = useState<GalleryImage[]>(fallbackGallery);
+  const [gallery, setGallery] = useState<GalleryImage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     return onValue(ref(database, cmsPaths.gallery), (snapshot) => {
       const nextGallery = objectToArray<GalleryImage>(snapshot.val()).sort((a, b) => a.order - b.order);
-      setGallery(nextGallery.length ? nextGallery : fallbackGallery);
+      setGallery(nextGallery);
       setIsLoading(false);
     });
   }, []);
@@ -50,12 +50,14 @@ export function useCmsEnquiries() {
 
 export function useCmsSettings() {
   const [settings, setSettings] = useState<SiteSettings>(fallbackSettings);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     return onValue(ref(database, cmsPaths.settings), (snapshot) => {
-      setSettings(snapshot.val() || fallbackSettings);
+      setSettings({ ...fallbackSettings, ...(snapshot.val() || {}) });
+      setIsLoading(false);
     });
   }, []);
 
-  return settings;
+  return { settings, isLoading };
 }

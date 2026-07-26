@@ -3,7 +3,8 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { site } from "@/site";
 import { ImageCard, PageShell } from "./components";
-import { images, portfolio, process, services, stats } from "./data";
+import { images, process, services, stats } from "./data";
+import { HomePortfolioPreview } from "./HomePortfolioPreview";
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
       <main>
         <section className="mx-auto px-5 sm:px-8">
           <div className="relative mx-auto min-h-[620px] max-w-[1360px] overflow-hidden rounded-[22px] bg-neutral-950 text-white">
-            <Image src={images.hero} alt="Steed Art luxury kitchen interior" fill priority className="object-cover" />
+            <Image src={images.hero} alt="Steed Art luxury kitchen interior" fill priority sizes="(max-width: 1360px) 100vw, 1360px" className="object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/10" />
             <div className="absolute inset-x-0 bottom-0 grid gap-8 p-5 sm:p-8 lg:grid-cols-[1fr_360px] lg:items-end">
               <div>
@@ -73,7 +74,7 @@ export default function Home() {
 
         <section className="mx-auto grid max-w-[1360px] gap-10 px-5 py-12 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div className="relative min-h-[520px] overflow-hidden rounded-[18px]">
-            <Image src={images.afterKitchen} alt="Renovated compact kitchen" fill className="object-cover" />
+            <Image src={images.afterKitchen} alt="Renovated compact kitchen" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
           </div>
           <div>
             <p className="text-sm font-extrabold uppercase tracking-[0.22em] text-[#76563f]">Elegance with purpose</p>
@@ -100,27 +101,7 @@ export default function Home() {
                 See the thinking behind the rooms.
               </h2>
             </div>
-            <div className="grid gap-2">
-              {portfolio.slice(0, 4).map((project, index) => (
-                <Link
-                  key={project.slug}
-                  href="/portfolio"
-                  className="grid gap-4 rounded-[18px] p-4 transition hover:bg-[#f4f0ea] sm:grid-cols-[54px_1fr_110px] sm:items-center"
-                >
-                  <span className="text-2xl font-extrabold text-neutral-300">{String(index + 1).padStart(2, "0")}</span>
-                  <span>
-                    <span className="block text-xs font-extrabold uppercase tracking-[0.2em] text-[#76563f]">{project.category}</span>
-                    <span className="mt-1 block text-2xl font-extrabold">{project.title}</span>
-                  </span>
-                  <span className="relative h-20 overflow-hidden rounded-[14px]">
-                    <Image src={project.afterImage} alt={project.title} fill className="object-cover" />
-                  </span>
-                </Link>
-              ))}
-              <Link href="/portfolio" className="mt-3 inline-flex h-11 w-fit items-center gap-2 rounded-full bg-black px-5 text-sm font-extrabold text-white">
-                Open portfolio <ArrowUpRight size={16} />
-              </Link>
-            </div>
+            <HomePortfolioPreview />
           </div>
         </section>
 
@@ -154,11 +135,11 @@ export default function Home() {
             </div>
             <div className="grid gap-3 md:grid-cols-2">
               <div className="relative min-h-[430px] overflow-hidden rounded-[18px]">
-                <Image src={images.beforeKitchen} alt="Kitchen before renovation" fill className="object-cover" />
+                <Image src={images.beforeKitchen} alt="Kitchen before renovation" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
                 <span className="absolute left-4 top-4 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-black">Before</span>
               </div>
               <div className="relative min-h-[430px] overflow-hidden rounded-[18px]">
-                <Image src={images.afterKitchen} alt="Kitchen after renovation" fill className="object-cover" />
+                <Image src={images.afterKitchen} alt="Kitchen after renovation" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
                 <span className="absolute left-4 top-4 rounded-full bg-white px-4 py-2 text-sm font-extrabold text-black">After</span>
               </div>
             </div>
