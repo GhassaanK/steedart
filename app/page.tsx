@@ -6,7 +6,6 @@ import { ImageCard, PageShell } from "./components";
 import { images } from "./data";
 import { HomePortfolioPreview } from "./HomePortfolioPreview";
 import { KitchenCostCalculator } from "./KitchenCostCalculator";
-import { CataloguePreview } from "./CataloguePreview";
 import { BeforeAfterSlider } from "./BeforeAfterSlider";
 import { ReviewsSection } from "./ReviewsSection";
 import {
@@ -58,8 +57,8 @@ export default function Home() {
                   kitchen projects start from {site.startingPrice}.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
-                  <Link href="/contact" className="inline-flex h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-extrabold text-black">
-                    Book consult <ArrowUpRight size={16} />
+                  <Link href="#kitchen-estimate" className="inline-flex h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-extrabold text-black">
+                    Calculate Your Cost <ArrowUpRight size={16} />
                   </Link>
                   <Link href="/portfolio" className="inline-flex h-10 items-center gap-2 rounded-full bg-white/12 px-4 text-sm font-extrabold text-white">
                     See our work
@@ -108,8 +107,8 @@ export default function Home() {
               title="Craft You Can Feel"
               label="Finish detail"
               className="min-h-[260px]"
-              href="/catalogues"
-              actionLabel="Browse finish catalogues"
+              href="/contact#project-enquiry"
+              actionLabel="Ask about finishes"
             />
           </div>
         </section>
@@ -159,8 +158,6 @@ export default function Home() {
         <div id="kitchen-estimate" className="scroll-mt-6">
           <KitchenCostCalculator />
         </div>
-
-        <CataloguePreview />
 
         <FaqAccordion />
 

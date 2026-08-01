@@ -17,7 +17,7 @@ export const faqs = [
   {
     question: "Do I need to choose materials before contacting you?",
     answer:
-      "Not at all. The catalogues help you notice what you like, but Steed Art will guide the final palette, finish, hardware, and combinations so the kitchen feels coherent.",
+      "Not at all. Once we understand your kitchen and preferences, Steed Art can share relevant finish and material options with you directly over WhatsApp and guide the final combination.",
   },
   {
     question: "Can Steed Art handle more than the kitchen?",

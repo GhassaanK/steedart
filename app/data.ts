@@ -16,8 +16,8 @@ import {
 export const images = {
   hero: "/images/hero-kitchen.png",
   portfolioKitchen: "/images/portfolio-taupe-kitchen.png",
-  beforeKitchen: "/images/before-kitchen.png",
-  afterKitchen: "/images/after-kitchen.png",
+  beforeKitchen: "/images/before-kitchen.jpeg",
+  afterKitchen: "/images/after-kitchen.jpeg",
   lounge: "/images/lounge-shelving.png",
   detail: "/images/cabinet-detail.png",
   dining: "/images/dining-transition.png",
