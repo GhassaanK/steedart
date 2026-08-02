@@ -2,9 +2,10 @@
 
 import { Quote, Star } from "lucide-react";
 import { useCmsReviews } from "./lib/useCmsData";
+import type { CmsReview } from "./lib/cms";
 
-export function ReviewsSection() {
-  const { reviews, isLoading } = useCmsReviews();
+export function ReviewsSection({ initialReviews = [] }: { initialReviews?: CmsReview[] }) {
+  const { reviews, isLoading } = useCmsReviews(initialReviews);
   const published = reviews.filter((review) => review.published).slice(0, 6);
 
   if (isLoading || !published.length) {

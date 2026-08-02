@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | Steed Art",
   },
   description:
-    "Premium kitchen renovation, custom cabinets, and interior design for Karachi homes. See the Steed Art approach and book a free consultation.",
+    "Custom kitchen renovation, cabinets, shelving, and interior design for Karachi homes. Explore Steed Art projects and calculate a starting cost.",
   keywords: [
     "kitchen renovation Karachi",
     "custom kitchen cabinets Karachi",
@@ -28,6 +28,17 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   icons: {
     icon: [
@@ -55,6 +66,14 @@ export const metadata: Metadata = {
     locale: "en_PK",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Steed Art | Custom Kitchen Renovation & Cabinets in Karachi",
+    description:
+      "Custom kitchen renovation, cabinets, shelving, and interior design for Karachi homes.",
+    images: ["/images/hero-kitchen.png"],
+  },
+  category: "Interior design",
 };
 
 export default function RootLayout({
@@ -64,42 +83,54 @@ export default function RootLayout({
 }>) {
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "HomeAndConstructionBusiness",
-    name: site.name,
-    url: site.url,
-    email: site.email,
-    telephone: site.phone,
-    image: `${site.url}/steedartlogo.png`,
-    logo: `${site.url}/steedartlogo.png`,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Karachi",
-      addressCountry: "PK",
-    },
-    areaServed: ["Karachi", "DHA Karachi", "Clifton Karachi", "Bahria Town Karachi", "PECHS"],
-    priceRange: "PKR 100,000+",
-    sameAs: [site.socials.facebook, site.socials.instagram],
-    makesOffer: [
+    "@graph": [
       {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Kitchen renovation in Karachi",
-        },
+        "@type": "WebSite",
+        "@id": `${site.url}/#website`,
+        url: site.url,
+        name: site.name,
+        alternateName: "Steed Art Karachi",
+        inLanguage: "en-PK",
+        publisher: { "@id": `${site.url}/#business` },
       },
       {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Custom kitchen cabinets",
+        "@type": ["HomeAndConstructionBusiness", "Organization"],
+        "@id": `${site.url}/#business`,
+        name: site.name,
+        url: site.url,
+        email: site.email,
+        telephone: site.phone,
+        image: `${site.url}/images/hero-kitchen.png`,
+        logo: {
+          "@type": "ImageObject",
+          url: `${site.url}/steedartlogo.png`,
         },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Interior design",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Karachi",
+          addressRegion: "Sindh",
+          addressCountry: "PK",
         },
+        areaServed: ["Karachi", "DHA Karachi", "Clifton Karachi", "Bahria Town Karachi", "PECHS"],
+        priceRange: "PKR 100,000+",
+        sameAs: [site.socials.facebook, site.socials.instagram],
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "customer service",
+          email: site.email,
+          telephone: site.phone,
+          areaServed: "PK",
+          availableLanguage: ["English", "Urdu"],
+        },
+        makesOffer: [
+          "Kitchen renovation in Karachi",
+          "Custom kitchen cabinets",
+          "Kitchen furniture and shelving",
+          "Residential interior design",
+        ].map((name) => ({
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name, areaServed: "Karachi" },
+        })),
       },
     ],
   };
@@ -109,7 +140,9 @@ export default function RootLayout({
       <body>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+          }}
         />
         {children}
       </body>

@@ -15,8 +15,14 @@ import {
 import { FaqAccordion } from "./FaqAccordion";
 import { HomeFinalCta } from "./HomeFinalCta";
 import { faqs } from "./faq-data";
+import { getPublicProjects, getPublicReviews } from "./lib/server-cms";
 
-export default function Home() {
+export default async function Home() {
+  const [projects, reviews] = await Promise.all([
+    getPublicProjects(),
+    getPublicReviews(),
+  ]);
+
   return (
     <PageShell>
       <main>
@@ -34,7 +40,7 @@ export default function Home() {
                   text: faq.answer,
                 },
               })),
-            }),
+            }).replace(/</g, "\\u003c"),
           }}
         />
         <section className="mx-auto px-5 sm:px-8">
@@ -145,11 +151,11 @@ export default function Home() {
                 See the thinking behind the rooms.
               </h2>
             </div>
-            <HomePortfolioPreview />
+            <HomePortfolioPreview initialProjects={projects} />
           </div>
         </section>
 
-        <ReviewsSection />
+        <ReviewsSection initialReviews={reviews} />
 
         <HomeProcessSection />
 

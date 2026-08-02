@@ -1,9 +1,10 @@
 "use client";
 
 import { useCmsSettings } from "../lib/useCmsData";
+import type { SiteSettings } from "../lib/cms";
 
-export function GalleryIntro() {
-  const { settings, isLoading } = useCmsSettings();
+export function GalleryIntro({ initialSettings }: { initialSettings?: SiteSettings }) {
+  const { settings, isLoading } = useCmsSettings(initialSettings);
 
   return (
     <section className="mx-auto max-w-[1360px] px-5 py-8 sm:px-8">

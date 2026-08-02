@@ -3,14 +3,20 @@
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "lucide-react";
-import type { CmsProject } from "../lib/cms";
+import type { CmsProject, SiteSettings } from "../lib/cms";
 import { useCmsProjects, useCmsSettings } from "../lib/useCmsData";
 
 type Project = CmsProject;
 
-export function PortfolioExperience() {
-  const { projects, isLoading } = useCmsProjects();
-  const { settings, isLoading: isSettingsLoading } = useCmsSettings();
+export function PortfolioExperience({
+  initialProjects = [],
+  initialSettings,
+}: {
+  initialProjects?: CmsProject[];
+  initialSettings?: SiteSettings;
+}) {
+  const { projects, isLoading } = useCmsProjects(initialProjects);
+  const { settings, isLoading: isSettingsLoading } = useCmsSettings(initialSettings);
   const [activeId, setActiveId] = useState<string | null>(null);
   const activeProject = useMemo(
     () => projects.find((project) => project.id === activeId) ?? null,
@@ -134,6 +140,7 @@ function ProjectIndexItem({
 }) {
   return (
     <button
+      id={`project-${project.id}`}
       type="button"
       onClick={onOpen}
       aria-label={`Open ${project.title} project`}

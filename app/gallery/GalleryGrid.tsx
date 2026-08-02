@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCmsGallery } from "../lib/useCmsData";
+import type { GalleryImage } from "../lib/cms";
 
 const spans = [
   "lg:col-span-6 lg:row-span-2",
@@ -29,8 +30,8 @@ const sizes = [
   "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 453px",
 ];
 
-export function GalleryGrid() {
-  const { gallery, isLoading } = useCmsGallery();
+export function GalleryGrid({ initialGallery = [] }: { initialGallery?: GalleryImage[] }) {
+  const { gallery, isLoading } = useCmsGallery(initialGallery);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const activeImage = activeIndex === null ? null : gallery[activeIndex];
 
@@ -76,7 +77,7 @@ export function GalleryGrid() {
             <article key={item} className={`animate-pulse rounded-[18px] bg-[#f4f0ea] ${spans[item % spans.length]}`} />
           ))
         ) : gallery.length ? gallery.map((image, index) => (
-          <article key={image.id} className={`relative overflow-hidden rounded-[18px] bg-neutral-900 ${spans[index % spans.length]}`}>
+          <article id={`gallery-image-${image.id}`} key={image.id} className={`relative overflow-hidden rounded-[18px] bg-neutral-900 ${spans[index % spans.length]}`}>
             <button
               type="button"
               onClick={() => setActiveIndex(index)}

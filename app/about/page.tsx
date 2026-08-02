@@ -1,20 +1,29 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 import { site } from "@/site";
 import { PageShell } from "../components";
 import { images, process } from "../data";
 
-export const metadata = {
-  title: "About Steed Art | Kitchen & Interior Design Studio, Karachi",
+export const metadata: Metadata = {
+  title: "Kitchen & Interior Design Studio in Karachi",
   description:
     "Steed Art is a Karachi interior design studio built around one offer: kitchen renovations with real design thinking, starting from as low as 1 lac PKR.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About Steed Art | Kitchen & Interior Design Studio, Karachi",
+    title: "Steed Art | Kitchen & Interior Design Studio in Karachi",
     description:
       "Steed Art is a Karachi interior design studio built around kitchen renovations with real design thinking.",
     url: "/about",
+    images: [{ url: "/images/lounge-shelving.png", width: 1792, height: 1024 }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Steed Art | Kitchen & Interior Design Studio in Karachi",
+    description: "Meet the Karachi studio behind considered kitchens, cabinetry, and residential interiors.",
+    images: ["/images/lounge-shelving.png"],
   },
 };
 

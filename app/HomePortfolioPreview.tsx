@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useCmsProjects } from "./lib/useCmsData";
+import type { CmsProject } from "./lib/cms";
 
-export function HomePortfolioPreview() {
-  const { projects, isLoading } = useCmsProjects();
+export function HomePortfolioPreview({ initialProjects = [] }: { initialProjects?: CmsProject[] }) {
+  const { projects, isLoading } = useCmsProjects(initialProjects);
   const visibleProjects = projects.slice(0, 4);
 
   return (
