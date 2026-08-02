@@ -77,6 +77,12 @@ export function Footer() {
           </div>
         </div>
       </div>
+      <div className="mx-auto flex max-w-[1360px] flex-col gap-3 px-5 pb-8 text-xs font-semibold text-white/45 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+        <p>Steed Art, Karachi</p>
+        <Link href="/privacy-policy" className="w-fit transition hover:text-white">
+          Privacy Policy
+        </Link>
+      </div>
     </footer>
   );
 }

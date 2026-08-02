@@ -7,6 +7,7 @@ const routes = [
   { path: "/gallery", priority: 0.8 },
   { path: "/about", priority: 0.75 },
   { path: "/contact", priority: 0.75 },
+  { path: "/privacy-policy", priority: 0.35 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

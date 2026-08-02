@@ -51,6 +51,13 @@ export function ContactForm({ estimate }: { estimate?: KitchenEstimate | null })
         <textarea required value={form.note} onChange={(event) => setForm((current) => ({ ...current, note: event.target.value }))} className="mt-2 min-h-44 w-full rounded-[14px] border border-black/10 bg-white p-4 text-sm font-medium outline-none transition focus:border-neutral-950" placeholder="Kitchen cabinets, shelving, furniture, full renovation, or full interior direction" />
       </label>
       {status ? <p className="mt-5 rounded-[14px] bg-white p-4 text-sm font-extrabold text-green-700">{status}</p> : null}
+      <p className="mt-5 max-w-xl text-xs font-semibold leading-5 text-neutral-500">
+        By sending this enquiry, you ask Steed Art to use the details above to
+        review and respond to your project. Read our{" "}
+        <a href="/privacy-policy" className="font-extrabold text-neutral-950 underline underline-offset-4">
+          Privacy Policy
+        </a>.
+      </p>
       <div className="mt-6 flex flex-wrap gap-3">
         <button disabled={isSaving} type="submit" className="inline-flex h-12 items-center gap-2 rounded-full bg-neutral-950 px-6 text-sm font-extrabold text-white transition hover:bg-[#6d4b34] disabled:cursor-not-allowed disabled:opacity-60">
           {isSaving ? "Sending" : "Send enquiry"} <Mail size={17} className={isSaving ? "animate-pulse" : ""} />

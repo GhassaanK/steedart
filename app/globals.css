@@ -80,3 +80,35 @@ a {
   background: #111111;
   color: #ffffff;
 }
+
+.policy-copy h3 {
+  margin-top: 18px;
+  color: #111111;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.policy-copy ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.policy-copy li {
+  position: relative;
+  padding-left: 26px;
+}
+
+.policy-copy li::before {
+  position: absolute;
+  top: 0.8rem;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  content: "";
+  background: #76563f;
+  border-radius: 999px;
+}
