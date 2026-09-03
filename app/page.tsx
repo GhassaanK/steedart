@@ -15,6 +15,7 @@ import { FaqAccordion } from "./FaqAccordion";
 import { HomeFinalCta } from "./HomeFinalCta";
 import { faqs } from "./faq-data";
 import { getPublicProjects, getPublicReviews } from "./lib/server-cms";
+import { HomeHero } from "./HomeHero";
 
 export default async function Home() {
   const [projects, reviews] = await Promise.all([
@@ -42,40 +43,7 @@ export default async function Home() {
             }).replace(/</g, "\\u003c"),
           }}
         />
-        <section className="mx-auto px-5 sm:px-8">
-          <div className="relative mx-auto min-h-[620px] max-w-[1360px] overflow-hidden rounded-[22px] bg-neutral-950 text-white">
-            <Image src={images.hero} alt="Complete Steed Art home renovation in Karachi" fill priority sizes="(max-width: 1360px) 100vw, 1360px" className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/10" />
-            <div className="absolute inset-x-0 bottom-0 grid gap-8 p-5 sm:p-8 lg:grid-cols-[1fr_360px] lg:items-end">
-              <div>
-                <p className="mb-4 text-sm font-extrabold uppercase tracking-[0.28em] text-white/75">
-                  Complete home renovation in Karachi
-                </p>
-                <h1 className="max-w-5xl text-6xl font-extrabold leading-[0.9] tracking-normal sm:text-8xl lg:text-[132px]">
-                  Homes With Presence
-                </h1>
-              </div>
-              <div className="rounded-[18px] bg-black/55 p-5 backdrop-blur-md">
-                <p className="text-sm leading-6 text-white/78">
-                  One design-led team for planning, civil work, interiors,
-                  custom joinery, finishes, installation, and the details that
-                  bring the whole home together.
-                </p>
-                <div className="mt-5 flex flex-wrap gap-3">
-                  <Link href="/contact#project-enquiry" className="inline-flex h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-extrabold text-black">
-                    Plan Your Renovation <ArrowUpRight size={16} />
-                  </Link>
-                  <Link href="/portfolio" className="inline-flex h-10 items-center gap-2 rounded-full bg-white/12 px-4 text-sm font-extrabold text-white">
-                    See our work
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="absolute right-6 top-6 hidden h-28 w-28 place-items-center rounded-full border border-white/35 text-center text-[10px] font-extrabold uppercase tracking-[0.18em] text-white/80 sm:grid">
-              Design to handover
-            </div>
-          </div>
-        </section>
+        <HomeHero />
 
         <section className="mx-auto grid max-w-[1360px] gap-4 px-5 py-16 sm:px-8 lg:grid-cols-[1.4fr_0.8fr]">
           <ImageCard
