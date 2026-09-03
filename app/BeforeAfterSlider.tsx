@@ -68,7 +68,7 @@ export function BeforeAfterSlider({
         step="1"
         value={position}
         onChange={(event) => setPosition(Number(event.target.value))}
-        aria-label="Reveal before and after kitchen renovation"
+        aria-label="Reveal before and after home renovation"
         aria-valuetext={`${position}% before image visible`}
         className="before-after-range absolute inset-0 z-20 h-full w-full cursor-ew-resize opacity-0"
       />

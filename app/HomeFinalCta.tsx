@@ -16,12 +16,12 @@ export function HomeFinalCta() {
             Your next step
           </p>
           <h2 className="mt-5 max-w-4xl text-5xl font-extrabold leading-[0.98] tracking-normal sm:text-7xl lg:text-[84px]">
-            Show us the kitchen you want to change.
+            Show us the home you want to transform.
           </h2>
           <p className="mt-7 max-w-xl text-sm font-medium leading-7 text-neutral-600">
-            Send photographs, approximate measurements, or simply tell us what
-            is not working. We will help you understand the right scope from
-            there.
+            Share the property, the spaces that need work, and what is not
+            working today. We will help you turn that into a clear renovation
+            scope and the right next conversation.
           </p>
         </div>
         <div className="flex flex-wrap gap-3 lg:max-w-[260px]">

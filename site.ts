@@ -7,7 +7,6 @@ export const site = {
   whatsapp: "+923302595555",
   city: "Karachi",
   address: "Plot No 635 & 636, Gali No 15, Sector-F, Punjab Road, Manzoor Colony, Karachi South",
-  startingPrice: "1 lac PKR",
   socials: {
     facebook: "https://facebook.com/steedartoriginal",
     instagram: "https://instagram.com/steed_art",
@@ -18,7 +17,7 @@ export const site = {
     { label: "Portfolio", href: "/portfolio" },
     { label: "Gallery", href: "/gallery" },
     { label: "About", href: "/about" },
-    { label: "Cost Calculator", href: "/#kitchen-estimate" },
+    { label: "Kitchen Cost Calculator", href: "/#kitchen-estimate" },
     { label: "Contact", href: "/contact" },
   ],
 };

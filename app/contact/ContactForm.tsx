@@ -41,14 +41,14 @@ export function ContactForm({ estimate }: { estimate?: KitchenEstimate | null })
         <Field label="Name" value={form.name} placeholder="Your name" onChange={(value) => setForm((current) => ({ ...current, name: value }))} />
         <Field label="Phone" value={form.phone} placeholder="+92" onChange={(value) => setForm((current) => ({ ...current, phone: value }))} />
         <Field label="Email" value={form.email} placeholder="you@example.com" onChange={(value) => setForm((current) => ({ ...current, email: value }))} />
-        <Field label="Project budget" value={form.budget} placeholder="1 lac PKR plus" onChange={(value) => setForm((current) => ({ ...current, budget: value }))} />
+        <Field label="Project budget" value={form.budget} placeholder="Your approximate range" onChange={(value) => setForm((current) => ({ ...current, budget: value }))} />
       </div>
       <p className="mt-3 text-sm font-semibold text-neutral-500">
         Roughly is fine. We will confirm scope on the call.
       </p>
       <label className="mt-4 block">
         <span className="text-sm font-extrabold text-neutral-700">Project note</span>
-        <textarea required value={form.note} onChange={(event) => setForm((current) => ({ ...current, note: event.target.value }))} className="mt-2 min-h-44 w-full rounded-[14px] border border-black/10 bg-white p-4 text-sm font-medium outline-none transition focus:border-neutral-950" placeholder="Kitchen cabinets, shelving, furniture, full renovation, or full interior direction" />
+        <textarea required value={form.note} onChange={(event) => setForm((current) => ({ ...current, note: event.target.value }))} className="mt-2 min-h-44 w-full rounded-[14px] border border-black/10 bg-white p-4 text-sm font-medium outline-none transition focus:border-neutral-950" placeholder="Tell us about the property, rooms involved, current condition, and what you want to change" />
       </label>
       {status ? <p className="mt-5 rounded-[14px] bg-white p-4 text-sm font-extrabold text-green-700">{status}</p> : null}
       <p className="mt-5 max-w-xl text-xs font-semibold leading-5 text-neutral-500">

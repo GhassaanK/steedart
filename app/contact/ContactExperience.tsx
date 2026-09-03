@@ -15,7 +15,7 @@ export function ContactExperience() {
           <div>
             <p className="text-sm font-extrabold uppercase tracking-[0.24em] text-white/45">Contact</p>
             <h1 className="mt-6 text-6xl font-extrabold leading-[0.98] tracking-normal sm:text-7xl">
-              Bring us the kitchen you keep thinking about.
+              Bring us the home you are ready to rethink.
             </h1>
           </div>
           <ContactDetails />

@@ -1,32 +1,32 @@
 export const faqs = [
   {
-    question: "Can I renovate only the cabinets?",
+    question: "Do you only renovate complete homes?",
     answer:
-      "Yes. Cabinet doors, frames, storage, shelving, and selected kitchen furniture can be treated as a focused project without redesigning the entire room.",
+      "Complete home renovation is now our primary service. We may consider a focused room or custom-work project when it has a clear design scope and is the right fit for the studio.",
   },
   {
-    question: "Is the calculator estimate final?",
+    question: "Does the calculator estimate a complete renovation?",
     answer:
-      "No. It is an informed starting range based on the measurements and finish you select. Site conditions, hardware, premium materials, and the final scope are confirmed after consultation.",
+      "No. The calculator is a focused planning tool for selected kitchen cabinetry or flooring. A complete renovation is scoped after we understand the property, site condition, design direction, and full extent of work.",
   },
   {
     question: "What if I do not know my measurements?",
     answer:
-      "Use the measurement video for an initial estimate, or send us photographs and approximate dimensions. Final production measurements are confirmed before fabrication.",
+      "That is fine. Send the property location, photographs, plans if available, and a rough description of what needs to change. Detailed measurements and site conditions are established as the project moves forward.",
   },
   {
-    question: "Do I need to choose materials before contacting you?",
+    question: "Do I need to choose finishes before contacting you?",
     answer:
-      "Not at all. Once we understand your kitchen and preferences, Steed Art can share relevant finish and material options with you directly over WhatsApp and guide the final combination.",
+      "Not at all. Material and finish direction is developed as part of the renovation. We narrow the options around the property, design intent, practical needs, and budget.",
   },
   {
-    question: "Can Steed Art handle more than the kitchen?",
+    question: "What does end-to-end renovation include?",
     answer:
-      "Yes. Many clients begin with a kitchen, then continue into shelving, fitted furniture, dining, living spaces, or complete interior direction.",
+      "Depending on the property, the scope can include planning, civil changes, electrical and plumbing coordination, ceilings, flooring, wall finishes, kitchens, wardrobes, custom joinery, lighting, fitted elements, installation, and final detailing.",
   },
   {
     question: "What happens after I send an enquiry?",
     answer:
-      "We review your requirements, contact you to understand the space and budget, then advise the most useful next step, whether that is an initial estimate, consultation, or site visit.",
+      "We review the property, requirements, and budget, then contact you to understand the scope and determine the right next step, whether that is a consultation, initial discussion, or site visit.",
   },
 ];

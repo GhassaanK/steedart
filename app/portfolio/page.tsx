@@ -6,25 +6,25 @@ import { JsonLd } from "../JsonLd";
 import { site } from "@/site";
 
 export const metadata: Metadata = {
-  title: "Kitchen Renovation Portfolio in Karachi",
+  title: "Home Renovation Portfolio in Karachi",
   description:
-    "A look at Steed Art kitchen renovations, custom cabinetry, and interior work across Karachi homes, updated as each project is completed.",
+    "Explore Steed Art home renovations, interiors, custom joinery, and room transformations across Karachi residences.",
   alternates: {
     canonical: "/portfolio",
   },
   openGraph: {
-    title: "Kitchen Renovation Portfolio in Karachi | Steed Art",
+    title: "Home Renovation Portfolio in Karachi | Steed Art",
     description:
-      "A look at Steed Art kitchen renovations, custom cabinetry, and interior work across Karachi homes.",
+      "A look at complete residential renovations, interiors, and custom work by Steed Art.",
     url: "/portfolio",
-    images: [{ url: "/images/portfolio-taupe-kitchen.png", width: 1792, height: 1024 }],
+    images: [{ url: "/images/lounge-after.webp", width: 1536, height: 1024 }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kitchen Renovation Portfolio in Karachi | Steed Art",
-    description: "Explore Steed Art kitchen renovations, cabinetry, and interior projects across Karachi.",
-    images: ["/images/portfolio-taupe-kitchen.png"],
+    title: "Home Renovation Portfolio in Karachi | Steed Art",
+    description: "Explore Steed Art residential renovations, interiors, and custom work across Karachi.",
+    images: ["/images/lounge-after.webp"],
   },
 };
 
@@ -44,7 +44,7 @@ export default async function PortfolioPage() {
               "@type": "CollectionPage",
               "@id": `${site.url}/portfolio#page`,
               url: `${site.url}/portfolio`,
-              name: "Steed Art kitchen renovation portfolio",
+              name: "Steed Art home renovation portfolio",
               description: metadata.description,
               isPartOf: { "@id": `${site.url}/#website` },
               mainEntity: {

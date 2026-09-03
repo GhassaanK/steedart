@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowUpRight, Check } from "./icons";
 import { process, services } from "./data";
 
 export function HomeProcessSection() {
@@ -17,8 +17,8 @@ export function HomeProcessSection() {
           </div>
           <p className="max-w-lg text-sm font-medium leading-7 text-white/62 lg:justify-self-end">
             You do not need to arrive with every answer. We move from the
-            problem, to the plan, to the final material decisions before
-            anything is made.
+            property and brief to a resolved design, coordinated execution,
+            and final handover in a deliberate order.
           </p>
         </div>
 
@@ -61,12 +61,13 @@ export function HomeDeliverablesSection() {
             What you get
           </p>
           <h2 className="mt-5 max-w-xl text-5xl font-extrabold leading-[1] tracking-normal sm:text-7xl">
-            A defined scope, not a vague makeover.
+            A complete scope, with every part accounted for.
           </h2>
         </div>
         <p className="max-w-lg text-sm font-medium leading-7 text-neutral-600 lg:justify-self-end">
-          Your exact scope is shaped around the room. These are the practical
-          areas Steed Art can design, coordinate, fabricate, and install.
+          Every renovation is shaped around the property and your priorities.
+          These are the connected areas Steed Art can design, coordinate, and
+          carry through on site.
         </p>
       </div>
 

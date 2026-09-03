@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { database } from "./firebase";
 import { cmsPaths, type CmsProject, type CmsReview, type Enquiry, type GalleryImage, objectToArray, type SiteSettings } from "./cms";
 import { fallbackSettings } from "./fallback-cms";
-import { normalizeProjectImages } from "./normalize-cms";
+import { normalizeProjectImages, normalizeSiteSettings } from "./normalize-cms";
 
 export function useCmsProjects(initialProjects: CmsProject[] = []) {
   const [projects, setProjects] = useState<CmsProject[]>(initialProjects);
@@ -70,12 +70,16 @@ export function useCmsReviews(initialReviews: CmsReview[] = []) {
 }
 
 export function useCmsSettings(initialSettings?: SiteSettings) {
-  const [settings, setSettings] = useState<SiteSettings>(initialSettings || fallbackSettings);
+  const [settings, setSettings] = useState<SiteSettings>(
+    normalizeSiteSettings(initialSettings || fallbackSettings),
+  );
   const [isLoading, setIsLoading] = useState(!initialSettings);
 
   useEffect(() => {
     return onValue(ref(database, cmsPaths.settings), (snapshot) => {
-      setSettings({ ...fallbackSettings, ...(snapshot.val() || {}) });
+      setSettings(
+        normalizeSiteSettings({ ...fallbackSettings, ...(snapshot.val() || {}) }),
+      );
       setIsLoading(false);
     });
   }, []);

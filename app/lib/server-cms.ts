@@ -2,7 +2,7 @@ import "server-only";
 
 import type { CmsProject, CmsReview, GalleryImage, SiteSettings } from "./cms";
 import { fallbackSettings } from "./fallback-cms";
-import { normalizeProjectImages } from "./normalize-cms";
+import { normalizeProjectImages, normalizeSiteSettings } from "./normalize-cms";
 
 type FirebaseRecord<T> = Record<string, Omit<T, "id"> & { id?: string }>;
 
@@ -46,5 +46,5 @@ export async function getPublicReviews(): Promise<CmsReview[]> {
 
 export async function getPublicSettings(): Promise<SiteSettings> {
   const value = await readPublicPath<Partial<SiteSettings>>("cms/settings");
-  return { ...fallbackSettings, ...(value || {}) };
+  return normalizeSiteSettings({ ...fallbackSettings, ...(value || {}) });
 }

@@ -4,17 +4,18 @@ import {
   GalleryHorizontal,
   Handshake,
   Home,
-  Layers3,
   MessageCircle,
   Paintbrush,
   PanelTop,
   Ruler,
   Sparkles,
-  Utensils,
-} from "lucide-react";
+} from "./icons";
 
 export const images = {
-  hero: "/images/hero-kitchen.png",
+  hero: "/images/home-hero.webp",
+  renovationBefore: "/images/lounge-before.webp",
+  renovationAfter: "/images/lounge-after.webp",
+  bedroom: "/images/primary-bedroom.webp",
   portfolioKitchen: "/images/portfolio-taupe-kitchen.png",
   beforeKitchen: "/images/before-kitchen.jpeg",
   afterKitchen: "/images/after-kitchen.jpeg",
@@ -25,58 +26,58 @@ export const images = {
 
 export const services = [
   {
-    title: "Custom Cabinets",
-    copy: "Made to fit your space, your routine, and the way your home actually works.",
-    icon: PanelTop,
-    href: "/#kitchen-estimate",
-    action: "Estimate cabinetry",
-    includes: ["Door and frame planning", "Finish selection", "Storage layout"],
-  },
-  {
-    title: "Kitchen Furniture",
-    copy: "Islands, counters, breakfast pieces, and fitted storage, finished like the rest of the room.",
-    icon: Utensils,
+    title: "Planning and Interior Design",
+    copy: "A complete direction for layout, movement, materials, lighting, storage, and the way every room connects.",
+    icon: Ruler,
     href: "/contact#project-enquiry",
-    action: "Discuss your kitchen",
-    includes: ["Island and counter design", "Fitted storage", "Material coordination"],
+    action: "Plan your renovation",
+    includes: ["Space planning", "Interior direction", "Material selection"],
   },
   {
-    title: "Shelving and Display",
-    copy: "Open, closed, decorative, or practical shelving that makes storage feel intentional.",
-    icon: Layers3,
+    title: "Civil and Site Works",
+    copy: "The structural, electrical, plumbing, ceiling, flooring, and surface work that gives the design a sound foundation.",
+    icon: Blocks,
+    href: "/contact#project-enquiry",
+    action: "Discuss your home",
+    includes: ["Civil alterations", "MEP coordination", "Floor and wall finishes"],
+  },
+  {
+    title: "Custom Joinery and Furniture",
+    copy: "Kitchens, wardrobes, vanities, doors, media walls, shelving, and fitted pieces designed as part of one home.",
+    icon: PanelTop,
     href: "/portfolio",
-    action: "See related work",
-    includes: ["Open and closed storage", "Display rhythm", "Integrated lighting"],
+    action: "See the work",
+    includes: ["Kitchens and wardrobes", "Fitted storage", "Custom furniture"],
   },
   {
-    title: "Full Interior Direction",
-    copy: "When the kitchen becomes the first chapter of a bigger home transformation.",
+    title: "Execution and Handover",
+    copy: "One coordinated renovation carried from approved design through site execution, installation, detailing, and final handover.",
     icon: Home,
     href: "/contact#project-enquiry",
-    action: "Plan your interior",
-    includes: ["Room-to-room direction", "Furniture planning", "Material continuity"],
+    action: "Start a conversation",
+    includes: ["Site coordination", "Installation", "Final detailing"],
   },
 ];
 
 export const process = [
   {
     title: "Consult",
-    copy: "We start with your space, budget, family rhythm, storage needs, and design taste.",
+    copy: "We understand the property, your priorities, budget, daily life, and what the finished home needs to become.",
     icon: MessageCircle,
   },
   {
     title: "Design",
-    copy: "We shape the layout, cabinet language, materials, lighting, and every functional detail.",
+    copy: "We resolve planning, interiors, services, lighting, materials, joinery, and the decisions that connect every room.",
     icon: Ruler,
   },
   {
-    title: "Craft",
-    copy: "Your kitchen elements are built with real attention to proportion, finish, and daily use.",
+    title: "Execute",
+    copy: "Civil work, services, surfaces, and custom elements are coordinated on site against the approved direction.",
     icon: Paintbrush,
   },
   {
-    title: "Install",
-    copy: "The work comes together on site with the calm precision a premium home deserves.",
+    title: "Complete",
+    copy: "Joinery, fixtures, final details, and finishing come together before the renovated home is handed back to you.",
     icon: Handshake,
   },
 ];
@@ -115,7 +116,7 @@ export const portfolio = [
     copy: "A small kitchen reset with walnut, cream fronts, practical shelving, and a calmer daily flow.",
     location: "Karachi family home",
     scope: ["Compact layout", "Custom cabinets", "Open shelving", "Integrated appliances"],
-    budget: "Starting from 1 lac PKR",
+    budget: "Scoped after consultation",
     year: "2026",
     story:
       "This project proves that a better kitchen is not always about gaining space. We used the same compact footprint and changed the rhythm, storage logic, and material tone so the room felt calmer from the doorway.",
@@ -200,8 +201,8 @@ export const portfolio = [
 ];
 
 export const stats = [
-  ["1 lac+", "Starting price, entry kitchens"],
-  ["Karachi", "Designed and built locally"],
-  ["Premium", "Materials and finish"],
-  ["Interior-Led", "Not just carpentry"],
+  ["End to end", "From first plan to handover"],
+  ["Karachi", "Designed and executed locally"],
+  ["One direction", "Every room considered together"],
+  ["Design-led", "Detail carried through execution"],
 ];

@@ -53,7 +53,7 @@ export function PortfolioExperience({
                 {settings.portfolioCopy}
               </p>
               <p className="mt-5 max-w-md text-sm font-extrabold leading-7 text-neutral-950">
-                Our first Karachi projects are underway. Full dossiers, photos, and before-and-afters will be added here as each one is finished.
+                Each dossier records the brief, design decisions, scope, and transformation behind a Steed Art renovation.
               </p>
               <a href="/contact" className="mt-5 inline-flex h-11 items-center rounded-full bg-black px-5 text-sm font-extrabold text-white">
                 Book a consult

@@ -68,7 +68,7 @@ export function MobileMenu() {
                   Steed Art
                 </p>
                 <p className="mt-1 text-sm font-bold text-neutral-950">
-                  Karachi interiors
+                  Complete home renovations
                 </p>
               </div>
               <button
@@ -111,8 +111,8 @@ export function MobileMenu() {
 
             <div className="mt-auto px-5 pb-5 pt-7">
               <p className="max-w-[280px] text-sm leading-6 text-neutral-600">
-                Kitchen cabinetry, shelving, furniture and full home interiors
-                for considered Karachi homes.
+                End-to-end renovation, interiors, and custom work for
+                considered Karachi homes.
               </p>
               <Link
                 href="/contact"

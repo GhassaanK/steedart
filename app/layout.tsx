@@ -12,19 +12,21 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Steed Art | Custom Kitchen Renovation & Cabinets in Karachi",
+    default: "Steed Art | Complete Home Renovation in Karachi",
     template: "%s | Steed Art",
   },
   description:
-    "Custom kitchen renovation, cabinets, shelving, and interior design for Karachi homes. Explore Steed Art projects and calculate a starting cost.",
+    "End-to-end home renovation in Karachi, from spatial planning and civil work to interiors, custom joinery, finishes, and final handover.",
   keywords: [
-    "kitchen renovation Karachi",
-    "custom kitchen cabinets Karachi",
-    "interior design studio Karachi",
-    "kitchen furniture Karachi",
-    "premium cabinetry Karachi",
-    "DHA Karachi interior design",
-    "Clifton Karachi interior design",
+    "home renovation Karachi",
+    "complete home renovation Karachi",
+    "house renovation company Karachi",
+    "apartment renovation Karachi",
+    "interior renovation Karachi",
+    "turnkey renovation Karachi",
+    "luxury home renovation Karachi",
+    "DHA Karachi home renovation",
+    "Clifton Karachi home renovation",
   ],
   alternates: {
     canonical: "/",
@@ -57,23 +59,23 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Steed Art | Custom Kitchen Renovation & Cabinets in Karachi",
+    title: "Steed Art | Complete Home Renovation in Karachi",
     description:
-      "Premium kitchen renovation, custom cabinets, and interior design for Karachi homes.",
+      "Design-led, end-to-end home renovation for Karachi residences.",
     url: site.url,
     siteName: site.name,
-    images: [{ url: "/images/hero-kitchen.png", width: 1792, height: 1024 }],
+    images: [{ url: "/images/home-hero.webp", width: 1536, height: 1024 }],
     locale: "en_PK",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Steed Art | Custom Kitchen Renovation & Cabinets in Karachi",
+    title: "Steed Art | Complete Home Renovation in Karachi",
     description:
-      "Custom kitchen renovation, cabinets, shelving, and interior design for Karachi homes.",
-    images: ["/images/hero-kitchen.png"],
+      "Design-led, end-to-end home renovation for Karachi residences.",
+    images: ["/images/home-hero.webp"],
   },
-  category: "Interior design",
+  category: "Home renovation",
 };
 
 export default function RootLayout({
@@ -100,7 +102,7 @@ export default function RootLayout({
         url: site.url,
         email: site.email,
         telephone: site.phone,
-        image: `${site.url}/images/hero-kitchen.png`,
+        image: `${site.url}/images/home-hero.webp`,
         logo: {
           "@type": "ImageObject",
           url: `${site.url}/steedartlogo.png`,
@@ -112,7 +114,7 @@ export default function RootLayout({
           addressCountry: "PK",
         },
         areaServed: ["Karachi", "DHA Karachi", "Clifton Karachi", "Bahria Town Karachi", "PECHS"],
-        priceRange: "PKR 100,000+",
+        priceRange: "Quoted by project scope",
         sameAs: [site.socials.facebook, site.socials.instagram],
         contactPoint: {
           "@type": "ContactPoint",
@@ -123,10 +125,11 @@ export default function RootLayout({
           availableLanguage: ["English", "Urdu"],
         },
         makesOffer: [
-          "Kitchen renovation in Karachi",
-          "Custom kitchen cabinets",
-          "Kitchen furniture and shelving",
+          "Complete home renovation in Karachi",
+          "Apartment and house renovation",
           "Residential interior design",
+          "Custom joinery and fitted furniture",
+          "Renovation execution and installation",
         ].map((name) => ({
           "@type": "Offer",
           itemOffered: { "@type": "Service", name, areaServed: "Karachi" },

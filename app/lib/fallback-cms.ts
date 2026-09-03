@@ -13,8 +13,8 @@ export const fallbackSettings: SiteSettings = {
   facebook: site.socials.facebook,
   instagram: site.socials.instagram,
   galleryHeading: "A Closer Look",
-  galleryCopy: "Cabinet joinery, shelving detail, finish and material choices, the small things that make a kitchen feel considered instead of assembled. Photos are added here as each Steed Art project is completed.",
+  galleryCopy: "Rooms, material transitions, custom joinery, lighting, finishes, and the details that make a renovated home feel resolved rather than assembled. New work is added as each Steed Art project is completed.",
   portfolioKicker: "Project dossiers",
   portfolioHeading: "The Work",
-  portfolioCopy: "Every Steed Art project starts the same way: understand the home, then design a kitchen that actually fits it. This is where that thinking becomes visible, project by project, as each one is completed.",
+  portfolioCopy: "Every Steed Art renovation starts by understanding the property, the people living in it, and what needs to change. This is where that thinking becomes visible, project by project.",
 };

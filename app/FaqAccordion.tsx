@@ -18,9 +18,9 @@ export function FaqAccordion() {
             Fewer unknowns. Better first decisions.
           </h2>
           <p className="mt-6 max-w-md text-sm font-medium leading-7 text-neutral-600">
-            You do not need a finished brief before speaking to us. A rough
-            measurement, a few photographs, and an honest budget are enough to
-            start.
+            You do not need a finished brief before speaking to us. Property
+            photographs, plans if available, the areas involved, and an honest
+            budget range are enough to begin.
           </p>
         </div>
 

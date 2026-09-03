@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, Database, EyeOff, LockKeyhole, Mail, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Database, EyeOff, LockKeyhole, Mail, ShieldCheck } from "../icons";
 import { site } from "@/site";
 import { PageShell } from "../components";
 import { JsonLd } from "../JsonLd";
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     description:
       "How Steed Art handles website, enquiry, communication, and project information.",
     url: "/privacy-policy",
-    images: [{ url: "/images/hero-kitchen.png", width: 1792, height: 1024 }],
+    images: [{ url: "/images/home-hero.webp", width: 1536, height: 1024 }],
     type: "website",
   },
   twitter: {
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "Privacy Policy | Steed Art",
     description:
       "How Steed Art handles website, enquiry, communication, and project information.",
-    images: ["/images/hero-kitchen.png"],
+    images: ["/images/home-hero.webp"],
   },
 };
 
@@ -101,7 +101,7 @@ export default async function PrivacyPolicyPage() {
               ))}
             </nav>
             <p className="mt-8 text-xs font-semibold leading-6 text-neutral-500">
-              Last reviewed 2 August 2026
+              Last reviewed 3 September 2026
             </p>
           </aside>
 
@@ -109,14 +109,14 @@ export default async function PrivacyPolicyPage() {
             <PolicySection id="overview" number="01" title="Who this policy covers">
               <p>
                 This Privacy Policy applies to steedart.pk and to information
-                you give Steed Art when asking about kitchen renovation,
-                cabinetry, furniture, shelving, or interior design services.
+                you give Steed Art when asking about home renovation, interior
+                design, custom joinery, or related residential services.
                 It also covers related communication through email, telephone,
                 WhatsApp, Facebook, and Instagram when that communication is
                 connected to an enquiry or project.
               </p>
               <p>
-                Steed Art is a Karachi-based interior design studio. In this
+                Steed Art is a Karachi-based home renovation and interior design studio. In this
                 policy, “Steed Art”, “we”, “us”, and “our” refer to the studio
                 operating from {settings.address}.
               </p>

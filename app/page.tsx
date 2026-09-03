@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { site } from "@/site";
+import { ArrowUpRight } from "./icons";
 import { ImageCard, PageShell } from "./components";
 import { images } from "./data";
 import { HomePortfolioPreview } from "./HomePortfolioPreview";
@@ -45,26 +44,26 @@ export default async function Home() {
         />
         <section className="mx-auto px-5 sm:px-8">
           <div className="relative mx-auto min-h-[620px] max-w-[1360px] overflow-hidden rounded-[22px] bg-neutral-950 text-white">
-            <Image src={images.hero} alt="Steed Art luxury kitchen interior" fill priority sizes="(max-width: 1360px) 100vw, 1360px" className="object-cover" />
+            <Image src={images.hero} alt="Complete Steed Art home renovation in Karachi" fill priority sizes="(max-width: 1360px) 100vw, 1360px" className="object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/10" />
             <div className="absolute inset-x-0 bottom-0 grid gap-8 p-5 sm:p-8 lg:grid-cols-[1fr_360px] lg:items-end">
               <div>
                 <p className="mb-4 text-sm font-extrabold uppercase tracking-[0.28em] text-white/75">
-                  Custom kitchen renovation in Karachi
+                  Complete home renovation in Karachi
                 </p>
                 <h1 className="max-w-5xl text-6xl font-extrabold leading-[0.9] tracking-normal sm:text-8xl lg:text-[132px]">
-                  Kitchens With Presence
+                  Homes With Presence
                 </h1>
               </div>
               <div className="rounded-[18px] bg-black/55 p-5 backdrop-blur-md">
                 <p className="text-sm leading-6 text-white/78">
-                  Custom cabinets, kitchen furniture, shelving, material
-                  direction, and installation for Karachi homes. Focused
-                  kitchen projects start from {site.startingPrice}.
+                  One design-led team for planning, civil work, interiors,
+                  custom joinery, finishes, installation, and the details that
+                  bring the whole home together.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
-                  <Link href="#kitchen-estimate" className="inline-flex h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-extrabold text-black">
-                    Calculate Your Cost <ArrowUpRight size={16} />
+                  <Link href="/contact#project-enquiry" className="inline-flex h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-extrabold text-black">
+                    Plan Your Renovation <ArrowUpRight size={16} />
                   </Link>
                   <Link href="/portfolio" className="inline-flex h-10 items-center gap-2 rounded-full bg-white/12 px-4 text-sm font-extrabold text-white">
                     See our work
@@ -73,48 +72,48 @@ export default async function Home() {
               </div>
             </div>
             <div className="absolute right-6 top-6 hidden h-28 w-28 place-items-center rounded-full border border-white/35 text-center text-[10px] font-extrabold uppercase tracking-[0.18em] text-white/80 sm:grid">
-              {site.startingPrice} plus
+              Design to handover
             </div>
           </div>
         </section>
 
         <section className="mx-auto grid max-w-[1360px] gap-4 px-5 py-16 sm:px-8 lg:grid-cols-[1.4fr_0.8fr]">
           <ImageCard
-            src={images.afterKitchen}
-            alt="Completed Steed Art kitchen renovation"
-            title="A Complete Kitchen Makeover, Without The Guesswork"
-            label="Kitchen first"
+            src={images.renovationAfter}
+            alt="Completed room within a Steed Art home renovation"
+            title="One Home. One Clear Direction."
+            label="End-to-end renovation"
             className="min-h-[520px]"
             href="/portfolio"
-            actionLabel="See completed work"
+            actionLabel="Explore project thinking"
           />
           <div className="grid gap-4">
             <div className="surface-card rounded-[18px] p-8">
-              <p className="text-sm font-extrabold uppercase tracking-[0.2em] text-[#76563f]">A focused first project</p>
+              <p className="text-sm font-extrabold uppercase tracking-[0.2em] text-[#76563f]">The complete picture</p>
               <h2 className="mt-5 text-4xl font-extrabold tracking-normal">
-                Start with the room that works hardest.
+                Renovation works better when every decision belongs together.
               </h2>
               <p className="mt-5 text-sm font-medium leading-7 text-neutral-600">
-                Steed Art brings full interior thinking into a focused kitchen
-                project: cabinet planning, storage, finishes, furniture,
-                shelving, and installation shaped around the way you live.
+                From circulation and services to lighting, finishes, joinery,
+                furniture, and installation, we shape the home as one connected
+                project rather than a collection of disconnected rooms.
               </p>
               <Link
-                href="#kitchen-estimate"
+                href="/contact#project-enquiry"
                 className="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-neutral-950 transition hover:text-[#76563f]"
               >
-                Calculate a starting estimate
+                Discuss your renovation
                 <ArrowUpRight size={16} />
               </Link>
             </div>
             <ImageCard
               src={images.detail}
               alt="Cabinet detail"
-              title="Craft You Can Feel"
-              label="Finish detail"
+              title="Details That Belong To The Whole"
+              label="Resolved, not added later"
               className="min-h-[260px]"
               href="/contact#project-enquiry"
-              actionLabel="Ask about finishes"
+              actionLabel="Explore our approach"
             />
           </div>
         </section>
@@ -129,16 +128,16 @@ export default async function Home() {
                 </h2>
               </div>
               <p className="mt-8 max-w-md text-sm font-medium leading-7 text-white/62">
-                Good kitchen work rarely starts with more space. It starts with
-                better decisions: cabinet rhythm, storage depth, light,
-                material, and the discipline to remove visual noise.
+                A convincing transformation is rarely one dramatic gesture. It
+                comes from resolving layout, function, light, materials,
+                storage, and execution as parts of the same idea.
               </p>
             </div>
             <BeforeAfterSlider
-              beforeSrc={images.beforeKitchen}
-              afterSrc={images.afterKitchen}
-              beforeAlt="Kitchen before Steed Art renovation"
-              afterAlt="Kitchen after Steed Art renovation"
+              beforeSrc={images.renovationBefore}
+              afterSrc={images.renovationAfter}
+              beforeAlt="Room before Steed Art renovation"
+              afterAlt="Room after Steed Art renovation"
             />
           </div>
         </section>
@@ -161,6 +160,20 @@ export default async function Home() {
 
         <HomeDeliverablesSection />
 
+        <section className="mx-auto max-w-[1360px] px-5 pt-16 sm:px-8 lg:pt-24">
+          <p className="text-sm font-extrabold uppercase tracking-[0.24em] text-[#76563f]">
+            Planning a kitchen within your renovation?
+          </p>
+          <h2 className="mt-5 max-w-4xl text-5xl font-extrabold leading-[1] tracking-normal sm:text-7xl">
+            Get a focused starting estimate for cabinetry or flooring.
+          </h2>
+          <p className="mt-6 max-w-2xl text-sm font-medium leading-7 text-neutral-600">
+            This tool estimates selected kitchen work only. A complete home
+            renovation is scoped after we understand the property, design
+            direction, site conditions, and full extent of work.
+          </p>
+        </section>
+
         <div id="kitchen-estimate" className="scroll-mt-6">
           <KitchenCostCalculator />
         </div>
@@ -170,8 +183,8 @@ export default async function Home() {
         <section className="mx-auto grid max-w-[1360px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:py-24">
           <div className="relative min-h-[520px] overflow-hidden rounded-[18px]">
             <Image
-              src={images.dining}
-              alt="Steed Art dining and living interior"
+              src={images.bedroom}
+              alt="Completed primary bedroom within a Steed Art home renovation"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
@@ -179,16 +192,15 @@ export default async function Home() {
           </div>
           <div>
             <p className="text-sm font-extrabold uppercase tracking-[0.22em] text-[#76563f]">
-              Beyond the kitchen
+              One home, one language
             </p>
             <h2 className="mt-5 text-5xl font-extrabold leading-[1] tracking-normal sm:text-7xl">
-              One room can change the direction of the whole home.
+              Every room should feel like it belongs to the same home.
             </h2>
             <p className="mt-6 max-w-xl text-sm font-medium leading-7 text-neutral-600">
-              We often begin with cabinets, storage, and the daily rhythm of a
-              kitchen. Once that language feels right, we can carry its
-              materials, proportions, and personality into furniture, dining,
-              living spaces, and complete interior direction.
+              We connect planning, materials, lighting, fitted elements, and
+              furniture from room to room. The result can hold contrast and
+              personality without feeling pieced together along the way.
             </p>
             <Link href="/about" className="mt-7 inline-flex h-11 items-center gap-2 rounded-full bg-neutral-950 px-5 text-sm font-extrabold text-white transition hover:bg-[#6d4b34]">
               Discover Steed Art <ArrowUpRight size={16} />

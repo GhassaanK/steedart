@@ -26,8 +26,8 @@ export function ReviewsSection({ initialReviews = [] }: { initialReviews?: CmsRe
               </h2>
             </div>
             <p className="mt-8 max-w-md text-sm font-medium leading-7 text-neutral-600">
-              A considered kitchen should still feel right when the drawings,
-              samples, and installation activity are over.
+              A considered home should still feel right when the drawings,
+              samples, site activity, and final installation are over.
             </p>
           </div>
 

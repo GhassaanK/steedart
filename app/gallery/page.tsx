@@ -7,25 +7,25 @@ import { JsonLd } from "../JsonLd";
 import { site } from "@/site";
 
 export const metadata: Metadata = {
-  title: "Kitchen, Cabinet & Interior Gallery in Karachi",
+  title: "Home Renovation & Interior Gallery in Karachi",
   description:
-    "Browse photos of Steed Art kitchens, cabinetry, shelving, and interior detail from real Karachi homes.",
+    "Browse Steed Art renovation details, rooms, materials, custom joinery, and completed interiors from Karachi homes.",
   alternates: {
     canonical: "/gallery",
   },
   openGraph: {
-    title: "Kitchen, Cabinet & Interior Gallery | Steed Art",
+    title: "Home Renovation & Interior Gallery | Steed Art",
     description:
-      "Browse photos of Steed Art kitchens, cabinetry, shelving, and interior detail from real Karachi homes.",
+      "Browse rooms, materials, joinery, and details from Steed Art home renovations.",
     url: "/gallery",
-    images: [{ url: "/images/cabinet-detail.png", width: 1792, height: 1024 }],
+    images: [{ url: "/images/primary-bedroom.webp", width: 1536, height: 1024 }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kitchen, Cabinet & Interior Gallery | Steed Art",
-    description: "Browse Steed Art kitchens, custom cabinetry, shelving, and material details from Karachi projects.",
-    images: ["/images/cabinet-detail.png"],
+    title: "Home Renovation & Interior Gallery | Steed Art",
+    description: "Browse rooms, materials, custom work, and details from Steed Art renovations in Karachi.",
+    images: ["/images/primary-bedroom.webp"],
   },
 };
 

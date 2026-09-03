@@ -3,7 +3,7 @@ import Link from "next/link";
 import {
   ArrowUpRight,
   MessageCircle,
-} from "lucide-react";
+} from "./icons";
 import { site } from "@/site";
 import { services } from "./data";
 import { HomePortfolioPreview } from "./HomePortfolioPreview";
@@ -53,11 +53,12 @@ export function Footer() {
       <div className="mx-auto grid max-w-[1360px] gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:py-20">
         <div>
           <h2 className="max-w-xl text-5xl font-extrabold tracking-normal sm:text-6xl">
-            Let&apos;s design the room everyone notices.
+            Let&apos;s renovate the home you want to live in.
           </h2>
           <p className="mt-7 max-w-lg text-sm leading-7 text-white/65">
-            Start with your kitchen. Build trust through one beautiful project.
-            Then let the rest of the home follow naturally.
+            Bring the property, the problems, and the ambition. Steed Art will
+            shape the design, coordinate the work, and carry the renovation
+            through to its final details.
           </p>
           <p className="mt-5 max-w-lg text-sm font-semibold leading-7 text-white/45">
             Serving DHA, Clifton, Bahria Town, PECHS, and homes across Karachi.
