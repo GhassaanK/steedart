@@ -7,7 +7,7 @@ import { JsonLd } from "../JsonLd";
 import { site } from "@/site";
 
 export const metadata: Metadata = {
-  title: "Home Renovation & Interior Gallery in Karachi",
+  title: "Residential & Commercial Interior Gallery",
   description:
     "Browse Steed Art renovation details, rooms, materials, custom joinery, and completed interiors from Karachi homes.",
   alternates: {
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
     description:
       "Browse rooms, materials, joinery, and details from Steed Art home renovations.",
     url: "/gallery",
-    images: [{ url: "/images/primary-bedroom.webp", width: 1536, height: 1024 }],
+    images: [{ url: "/images/profile/bedroom.webp", width: 1280, height: 960 }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Home Renovation & Interior Gallery | Steed Art",
     description: "Browse rooms, materials, custom work, and details from Steed Art renovations in Karachi.",
-    images: ["/images/primary-bedroom.webp"],
+    images: ["/images/profile/bedroom.webp"],
   },
 };
 
@@ -37,7 +37,7 @@ export default async function GalleryPage() {
 
   return (
     <PageShell>
-      <main>
+      <main id="main-content">
         {gallery.length ? (
           <JsonLd
             data={{

@@ -36,6 +36,7 @@ const blankProject: CmsProject = {
   image: "",
   beforeImage: "",
   afterImage: "",
+  comparisonVerified: false,
   scope: [],
   palette: [],
   notes: [],
@@ -183,7 +184,7 @@ function ProjectEditor({ project }: { project: CmsProject }) {
     setUploadingField(field);
     try {
       const uploaded = await uploadToCloudinary(file, `steedart/portfolio/${draft.title || "project"}`);
-      setField(field, uploaded.url);
+      setDraft(current => ({ ...current, [field]: uploaded.url, ...(field === "beforeImage" || field === "afterImage" ? { comparisonVerified: false } : {}) }));
       setNotice("Image uploaded.");
     } catch {
       setNotice("Image upload failed. Please try again.");
@@ -272,6 +273,13 @@ function ProjectEditor({ project }: { project: CmsProject }) {
         <Upload label="Before image" image={draft.beforeImage} isUploading={uploadingField === "beforeImage"} onUpload={(file) => uploadImage("beforeImage", file)} />
         <Upload label="After image" image={draft.afterImage} isUploading={uploadingField === "afterImage"} onUpload={(file) => uploadImage("afterImage", file)} />
       </div>
+      <label className="mt-5 flex items-start gap-3 rounded-[14px] border border-black/10 bg-white p-4">
+        <input type="checkbox" className="mt-1 h-5 w-5 shrink-0 accent-black"
+          checked={draft.comparisonVerified === true}
+          disabled={!draft.beforeImage || !draft.afterImage || draft.beforeImage === draft.afterImage || uploadingField !== null}
+          onChange={event => setField("comparisonVerified", event.target.checked)} />
+        <span><span className="block text-sm font-bold">Verified before-and-after photographs</span><span className="mt-1 block text-sm leading-6 text-neutral-600">I confirm these photographs show the same Steed Art project at different stages and can be published. Up to four verified pairs by project order are eligible for the homepage slider when public project content is available. Replacing either photograph clears this confirmation.</span></span>
+      </label>
       <div className="mt-4 grid gap-4 sm:grid-cols-3">
         <Textarea label="Scope, comma separated" value={scopeText} onChange={setScopeText} />
         <Textarea label="Palette, comma separated" value={paletteText} onChange={setPaletteText} />
@@ -460,7 +468,7 @@ function ReviewsPanel({ reviews }: { reviews: CmsReview[] }) {
                   <span className="font-extrabold">
                     {review.name || "Unnamed client"}
                   </span>
-                  <span className="text-[10px] font-extrabold uppercase tracking-[0.16em] opacity-55">
+                  <span className="text-xs font-extrabold uppercase tracking-[0.16em] opacity-55">
                     {review.published ? "Published" : "Draft"}
                   </span>
                 </span>

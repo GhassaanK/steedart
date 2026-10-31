@@ -26,6 +26,7 @@ export type CmsProject = {
   gallery: string[];
   order: number;
   featured?: boolean;
+  comparisonVerified?: boolean;
 };
 
 export type GalleryImage = {
@@ -90,7 +91,10 @@ export async function saveProject(project: CmsProject) {
   const projectRef = project.id ? ref(database, `${cmsPaths.projects}/${project.id}`) : push(ref(database, cmsPaths.projects));
   const id = project.id || projectRef.key;
   if (!id) throw new Error("Could not create project id.");
-  await set(projectRef, { ...project, id });
+  await set(projectRef, {
+    ...project, id,
+    comparisonVerified: project.comparisonVerified === true && Boolean(project.beforeImage?.trim()) && Boolean(project.afterImage?.trim()) && project.beforeImage !== project.afterImage,
+  });
   return id;
 }
 

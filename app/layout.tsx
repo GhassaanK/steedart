@@ -1,22 +1,31 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { DM_Sans, DM_Serif_Display } from "next/font/google";
 import { site } from "@/site";
 import "./globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const sans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+const display = DM_Serif_Display({
+  variable: "--font-dm-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Steed Art | Complete Home Renovation in Karachi",
+    default: "Steed Art | Interior Design & Renovation in Karachi",
     template: "%s | Steed Art",
   },
   description:
-    "End-to-end home renovation in Karachi, from spatial planning and civil work to interiors, custom joinery, finishes, and final handover.",
+    "Interior design and turnkey renovation in Karachi. Residential and commercial interiors, from planning and civil work to custom joinery, finishes and handover.",
   keywords: [
     "home renovation Karachi",
     "complete home renovation Karachi",
@@ -59,21 +68,21 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Steed Art | Complete Home Renovation in Karachi",
+    title: "Steed Art | Interior Design & Renovation in Karachi",
     description:
-      "Design-led, end-to-end home renovation for Karachi residences.",
+      "Interior design and turnkey renovation for homes and commercial spaces in Karachi.",
     url: site.url,
     siteName: site.name,
-    images: [{ url: "/images/home-hero.webp", width: 1536, height: 1024 }],
+    images: [{ url: "/images/profile/living-dining.webp", width: 1280, height: 960, alt: "Steed Art living and dining interior" }],
     locale: "en_PK",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Steed Art | Complete Home Renovation in Karachi",
+    title: "Steed Art | Interior Design & Renovation in Karachi",
     description:
-      "Design-led, end-to-end home renovation for Karachi residences.",
-    images: ["/images/home-hero.webp"],
+      "Interior design and turnkey renovation for homes and commercial spaces in Karachi.",
+    images: ["/images/profile/living-dining.webp"],
   },
   category: "Home renovation",
 };
@@ -102,7 +111,7 @@ export default function RootLayout({
         url: site.url,
         email: site.email,
         telephone: site.phone,
-        image: `${site.url}/images/home-hero.webp`,
+        image: `${site.url}/images/profile/living-dining.webp`,
         logo: {
           "@type": "ImageObject",
           url: `${site.url}/steedartlogo.png`,
@@ -139,7 +148,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${manrope.variable} antialiased`}>
+    <html lang="en" className={`${sans.variable} ${display.variable} antialiased`}>
       <body>
         <script
           type="application/ld+json"

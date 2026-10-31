@@ -2,130 +2,48 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import { site } from "@/site";
+import { useDialog } from "./useDialog";
+import type { GuideNavigationGroup } from "./guide-navigation";
 
-export function MobileMenu() {
+export function MobileMenu({ guideGroups }: { guideGroups: GuideNavigationGroup[] }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [guidesOpen, setGuidesOpen] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setIsOpen(false);
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen]);
+  const ref = useDialog(isOpen, () => setIsOpen(false));
+  const close = () => { setIsOpen(false); setGuidesOpen(false); };
 
   return (
     <div className="lg:hidden">
-      <button
-        type="button"
-        className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-neutral-950 text-white shadow-[0_12px_28px_rgba(0,0,0,0.16)] transition hover:bg-[#6d4b34]"
-        aria-label="Open menu"
-        aria-expanded={isOpen}
-        aria-controls="mobile-navigation"
-        onClick={() => setIsOpen(true)}
-      >
-        <Menu size={20} strokeWidth={2.4} />
-      </button>
-
-      {isOpen ? (
-        <div
-          className="fixed inset-0 z-50 bg-black/38 p-3 backdrop-blur-sm sm:p-5"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Mobile navigation"
-        >
-          <button
-            type="button"
-            className="absolute inset-0 cursor-default"
-            aria-label="Dismiss navigation"
-            onClick={() => setIsOpen(false)}
-          />
-          <div
-            id="mobile-navigation"
-            className="relative ml-auto flex h-full w-full max-w-[390px] flex-col overflow-hidden rounded-[28px] bg-white text-neutral-950 shadow-[0_30px_90px_rgba(0,0,0,0.28)]"
-          >
-            <div className="flex items-center justify-between px-5 py-5">
-              <div>
-                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-neutral-500">
-                  Steed Art
-                </p>
-                <p className="mt-1 text-sm font-bold text-neutral-950">
-                  Complete home renovations
-                </p>
-              </div>
-              <button
-                type="button"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#f4f0ea] text-neutral-950 transition hover:bg-neutral-950 hover:text-white"
-                aria-label="Close menu"
-                onClick={() => setIsOpen(false)}
-              >
-                <X size={20} strokeWidth={2.4} />
-              </button>
-            </div>
-
-            <nav className="grid gap-2 px-3 pt-4" aria-label="Mobile">
-              {site.nav.map((item, index) => {
-                const isActive = pathname === item.href;
-
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`group flex min-h-[72px] items-center justify-between rounded-[22px] px-5 text-2xl font-black tracking-normal transition ${
-                      isActive
-                        ? "bg-neutral-950 text-white"
-                        : "bg-[#f4f0ea] text-neutral-950 hover:bg-[#e8ddd0]"
-                    }`}
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <span>{item.label}</span>
-                    <span
-                      className={`text-xs font-black tracking-[0.18em] ${
-                        isActive ? "text-white/55" : "text-neutral-400"
-                      }`}
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                  </Link>
-                );
-              })}
+      <button className="mobile-menu-trigger" aria-label="Open menu" aria-expanded={isOpen} aria-controls="mobile-navigation" onClick={() => setIsOpen(true)}><Menu size={22} /></button>
+      {isOpen && (
+        <div className="mobile-menu-overlay" onClick={event => { if (event.target === event.currentTarget) close(); }}>
+          <div ref={ref} id="mobile-navigation" className="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+            <div className="mobile-menu-top"><span className="eyebrow">Steed Art / Navigation</span><button aria-label="Close menu" onClick={close}><X size={22} /></button></div>
+            <nav aria-label="Mobile">
+              {site.nav.map((item, index) => item.href !== "/blog" ? (
+                <Link key={item.href} href={item.href} aria-current={pathname === item.href ? "page" : undefined} onClick={close}><span className="eyebrow">0{index + 1}</span><span>{item.label}</span><ArrowUpRight size={19} /></Link>
+              ) : (
+                <div key={item.href} className="mobile-guide-group">
+                  <button type="button" className="mobile-menu-guide-trigger" aria-expanded={guidesOpen} aria-controls="mobile-guide-topics" onClick={() => setGuidesOpen(value => !value)}><span className="eyebrow">0{index + 1}</span><span>Renovation Guide</span><ChevronDown size={19} className={guidesOpen ? "is-open" : ""} /></button>
+                  <div id="mobile-guide-topics" className="mobile-guide-topics" hidden={!guidesOpen}>
+                    <Link href="/blog" className="mobile-all-guides" onClick={close}>Explore all guides <ArrowUpRight size={15} /></Link>
+                    {guideGroups.map(group => (
+                      <details key={group.id} className="mobile-guide-topic">
+                        <summary>{group.title}<ChevronDown size={15} /></summary>
+                        <ul>{group.links.map(link => <li key={link.href}><Link href={link.href} onClick={close}>{link.label}{link.kind === "section" && <small>In the guide</small>}</Link></li>)}</ul>
+                      </details>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </nav>
-
-            <div className="mt-auto px-5 pb-5 pt-7">
-              <p className="max-w-[280px] text-sm leading-6 text-neutral-600">
-                End-to-end renovation, interiors, and custom work for
-                considered Karachi homes.
-              </p>
-              <Link
-                href="/contact"
-                className="mt-5 inline-flex h-12 w-full items-center justify-between rounded-full bg-neutral-950 px-5 text-sm font-black text-white transition hover:bg-[#6d4b34]"
-                onClick={() => setIsOpen(false)}
-              >
-                Book a consultation
-                <ArrowUpRight size={18} strokeWidth={2.4} />
-              </Link>
-            </div>
+            <div className="mobile-menu-bottom"><p>Interior design & turnkey renovation.<br />Residential and commercial. Karachi.</p><Link href="/contact" onClick={close} className="text-link">Start a conversation <ArrowUpRight size={18} /></Link></div>
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 }

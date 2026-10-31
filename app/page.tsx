@@ -1,183 +1,36 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "./icons";
-import { ImageCard, PageShell } from "./components";
-import { images } from "./data";
-import { HomePortfolioPreview } from "./HomePortfolioPreview";
-import { KitchenCostCalculator } from "./KitchenCostCalculator";
-import { BeforeAfterSlider } from "./BeforeAfterSlider";
-import { ReviewsSection } from "./ReviewsSection";
-import {
-  HomeDeliverablesSection,
-  HomeProcessSection,
-} from "./HomeDecisionSections";
-import { FaqAccordion } from "./FaqAccordion";
-import { HomeFinalCta } from "./HomeFinalCta";
-import { faqs } from "./faq-data";
-import { getPublicProjects, getPublicReviews } from "./lib/server-cms";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { PageShell } from "./components";
 import { HomeHero } from "./HomeHero";
+import { Reveal } from "./Reveal";
+import { ServiceExplorer } from "./ServiceExplorer";
+import { profileImages, profileProcess, profileWork } from "./profile-data";
+import { FaqAccordion } from "./FaqAccordion";
+import { JsonLd } from "./JsonLd";
+import { faqs } from "./faq-data";
+import { JournalPreview } from "./JournalPreview";
+import { TransformationShowcase } from "./TransformationShowcase";
+import { getVerifiedProjectComparisons } from "./lib/server-cms";
 
 export default async function Home() {
-  const [projects, reviews] = await Promise.all([
-    getPublicProjects(),
-    getPublicReviews(),
-  ]);
-
-  return (
-    <PageShell>
-      <main>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              mainEntity: faqs.map((faq) => ({
-                "@type": "Question",
-                name: faq.question,
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: faq.answer,
-                },
-              })),
-            }).replace(/</g, "\\u003c"),
-          }}
-        />
-        <HomeHero />
-
-        <section className="mx-auto grid max-w-[1360px] gap-4 px-5 py-16 sm:px-8 lg:grid-cols-[1.4fr_0.8fr]">
-          <ImageCard
-            src={images.renovationAfter}
-            alt="Completed room within a Steed Art home renovation"
-            title="One Home. One Clear Direction."
-            label="End-to-end renovation"
-            className="min-h-[520px]"
-            href="/portfolio"
-            actionLabel="Explore project thinking"
-          />
-          <div className="grid gap-4">
-            <div className="surface-card rounded-[18px] p-8">
-              <p className="text-sm font-extrabold uppercase tracking-[0.2em] text-[#76563f]">The complete picture</p>
-              <h2 className="mt-5 text-4xl font-extrabold tracking-normal">
-                Renovation works better when every decision belongs together.
-              </h2>
-              <p className="mt-5 text-sm font-medium leading-7 text-neutral-600">
-                From circulation and services to lighting, finishes, joinery,
-                furniture, and installation, we shape the home as one connected
-                project rather than a collection of disconnected rooms.
-              </p>
-              <Link
-                href="/contact#project-enquiry"
-                className="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-neutral-950 transition hover:text-[#76563f]"
-              >
-                Discuss your renovation
-                <ArrowUpRight size={16} />
-              </Link>
-            </div>
-            <ImageCard
-              src={images.detail}
-              alt="Cabinet detail"
-              title="Details That Belong To The Whole"
-              label="Resolved, not added later"
-              className="min-h-[260px]"
-              href="/contact#project-enquiry"
-              actionLabel="Explore our approach"
-            />
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-[1360px] px-5 py-12 sm:px-8 lg:py-16">
-          <div className="before-after-frame grid overflow-hidden rounded-[22px] p-4 text-white lg:grid-cols-[0.9fr_1.1fr] lg:p-6">
-            <div className="flex flex-col justify-between p-5 lg:p-8">
-              <div>
-                <p className="text-sm font-extrabold uppercase tracking-[0.24em] text-white/55">Before and after</p>
-                <h2 className="mt-5 max-w-lg text-5xl font-extrabold leading-[1] tracking-normal sm:text-6xl">
-                  Same footprint. Completely different feeling.
-                </h2>
-              </div>
-              <p className="mt-8 max-w-md text-sm font-medium leading-7 text-white/62">
-                A convincing transformation is rarely one dramatic gesture. It
-                comes from resolving layout, function, light, materials,
-                storage, and execution as parts of the same idea.
-              </p>
-            </div>
-            <BeforeAfterSlider
-              beforeSrc={images.renovationBefore}
-              afterSrc={images.renovationAfter}
-              beforeAlt="Room before Steed Art renovation"
-              afterAlt="Room after Steed Art renovation"
-            />
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-[1360px] px-5 py-16 sm:px-8 lg:py-24">
-          <div className="grid gap-8 lg:grid-cols-[0.5fr_0.5fr] lg:items-start">
-            <div>
-              <p className="text-sm font-extrabold uppercase tracking-[0.24em] text-[#76563f]">Project dossiers</p>
-              <h2 className="mt-5 max-w-xl text-5xl font-extrabold leading-[1] tracking-normal sm:text-7xl">
-                See the thinking behind the rooms.
-              </h2>
-            </div>
-            <HomePortfolioPreview initialProjects={projects} />
-          </div>
-        </section>
-
-        <ReviewsSection initialReviews={reviews} />
-
-        <HomeProcessSection />
-
-        <HomeDeliverablesSection />
-
-        <section className="mx-auto max-w-[1360px] px-5 pt-16 sm:px-8 lg:pt-24">
-          <p className="text-sm font-extrabold uppercase tracking-[0.24em] text-[#76563f]">
-            Planning a kitchen within your renovation?
-          </p>
-          <h2 className="mt-5 max-w-4xl text-5xl font-extrabold leading-[1] tracking-normal sm:text-7xl">
-            Get a focused starting estimate for cabinetry or flooring.
-          </h2>
-          <p className="mt-6 max-w-2xl text-sm font-medium leading-7 text-neutral-600">
-            This tool estimates selected kitchen work only. A complete home
-            renovation is scoped after we understand the property, design
-            direction, site conditions, and full extent of work.
-          </p>
-        </section>
-
-        <div id="kitchen-estimate" className="scroll-mt-6">
-          <KitchenCostCalculator />
-        </div>
-
-        <FaqAccordion />
-
-        <section className="mx-auto grid max-w-[1360px] gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:py-24">
-          <div className="relative min-h-[520px] overflow-hidden rounded-[18px]">
-            <Image
-              src={images.bedroom}
-              alt="Completed primary bedroom within a Steed Art home renovation"
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-            />
-          </div>
-          <div>
-            <p className="text-sm font-extrabold uppercase tracking-[0.22em] text-[#76563f]">
-              One home, one language
-            </p>
-            <h2 className="mt-5 text-5xl font-extrabold leading-[1] tracking-normal sm:text-7xl">
-              Every room should feel like it belongs to the same home.
-            </h2>
-            <p className="mt-6 max-w-xl text-sm font-medium leading-7 text-neutral-600">
-              We connect planning, materials, lighting, fitted elements, and
-              furniture from room to room. The result can hold contrast and
-              personality without feeling pieced together along the way.
-            </p>
-            <Link href="/about" className="mt-7 inline-flex h-11 items-center gap-2 rounded-full bg-neutral-950 px-5 text-sm font-extrabold text-white transition hover:bg-[#6d4b34]">
-              Discover Steed Art <ArrowUpRight size={16} />
-            </Link>
-          </div>
-        </section>
-
-        <HomeFinalCta />
-      </main>
-    </PageShell>
-  );
+  const comparisons = await getVerifiedProjectComparisons();
+  return <PageShell><main id="main-content">
+    <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(faq => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) }} />
+    <HomeHero />
+    <section className="studio-wrap studio-intro section-space">
+      <Reveal><p className="eyebrow section-label"><span>01 / The studio</span><span className="small-cross">+</span></p></Reveal>
+      <Reveal delay={100}><h2 className="display-heading">The whole space.<br /><span className="muted-word">Considered together.</span></h2><div className="intro-copy"><p>Steed Art is a Karachi-based interior design and renovation business for homeowners and commercial clients. We bring design and execution into one coordinated project.</p><p>From the layout to the last fitting, we consider how your space will work, feel and come together.</p><Link href="/about" className="text-link">Meet Steed Art <ArrowUpRight size={18} /></Link></div></Reveal>
+    </section>
+    {comparisons.length > 0 && <TransformationShowcase comparisons={comparisons} />}
+    <section id="selected-work" className="studio-wrap section-space work-section">
+      <Reveal className="section-heading"><div><p className="eyebrow">02 / Selected work</p><h2 className="display-heading">A closer look<br />at what we do.</h2></div><div className="section-heading-aside"><p>Residential spaces. Working environments.<br />Details made for the way you live.</p><Link className="text-link" href="/portfolio">Explore the portfolio <ArrowUpRight size={18} /></Link></div></Reveal>
+      <div className="editorial-work-grid">{profileWork.slice(0, 4).map((project, i) => <Reveal key={project.id} delay={(i % 2) * 130} className={`work-item work-item-${i}`}><Link href={`/portfolio#project-${project.id}`} className="work-image-link"><div className="work-image"><Image src={project.image} alt={project.copy} fill sizes="(max-width: 700px) 100vw, 50vw" /><span className="work-open"><ArrowUpRight size={24} /></span><span className="work-index">0{i + 1}</span></div><div className="work-caption"><div><p className="eyebrow">{project.category}</p><h3>{project.title}</h3></div><ArrowUpRight size={22} /></div></Link></Reveal>)}</div>
+    </section>
+    <section className="services-section section-space" id="services"><div className="studio-wrap"><Reveal className="section-heading"><div><p className="eyebrow">03 / Our expertise</p><h2 className="display-heading">From first plans<br />to finishing touches.</h2></div><p className="section-heading-aside">A turnkey approach to the work after the grey structure, shaped around your property and an agreed scope.</p></Reveal><Reveal><ServiceExplorer /></Reveal></div></section>
+    <section className="approach-section"><div className="approach-photo"><Image src={profileImages.executive} alt="Executive office with custom desk, illuminated display joinery and feature wall from the Steed Art profile" fill sizes="(max-width: 800px) 100vw, 50vw" /></div><div className="approach-content"><Reveal><p className="eyebrow">04 / Our approach</p><h2 className="display-heading">Good design<br />should work<br /><span>beautifully.</span></h2><p>We consider how a space will be used before choosing the finishes that define it. Layout, storage and lighting belong in the same conversation.</p><Link href="/contact" className="text-link">Tell us about your space <ArrowUpRight size={18} /></Link></Reveal></div></section>
+    <section className="studio-wrap section-space process-section"><Reveal className="section-heading"><div><p className="eyebrow">05 / How we work</p><h2 className="display-heading">A clear route<br />to completion.</h2></div><p className="section-heading-aside">Each stage connects your brief with the finished space, from the first conversation to handover.</p></Reveal><div className="process-track">{profileProcess.map(([title, copy], i) => <Reveal key={title} delay={i * 90}><div className="process-step"><div className="process-marker"><span>0{i + 1}</span><ArrowRight size={16} /></div><h3>{title}</h3><p>{copy}</p></div></Reveal>)}</div></section>
+    <JournalPreview />
+    <div className="studio-faq"><FaqAccordion /></div>
+  </main></PageShell>;
 }

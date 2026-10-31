@@ -2,80 +2,59 @@
 
 import Image from "next/image";
 import { ChevronsLeftRight } from "lucide-react";
-import { useState } from "react";
+import { useId, useRef, useState, type PointerEvent } from "react";
 
 export function BeforeAfterSlider({
-  beforeSrc,
-  afterSrc,
-  beforeAlt,
-  afterAlt,
+  beforeSrc, afterSrc, beforeAlt, afterAlt,
+  beforeLabel = "Before", afterLabel = "After", caption,
 }: {
   beforeSrc: string;
   afterSrc: string;
   beforeAlt: string;
   afterAlt: string;
+  beforeLabel?: string;
+  afterLabel?: string;
+  caption?: string;
 }) {
   const [position, setPosition] = useState(50);
+  const dragging = useRef<number | null>(null);
+  const id = useId();
+
+  const updateFromPointer = (event: PointerEvent<HTMLDivElement>) => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    if (bounds.width) setPosition(Math.round(Math.max(0, Math.min(100, (event.clientX - bounds.left) / bounds.width * 100))));
+  };
 
   return (
-    <div className="group relative min-h-[430px] overflow-hidden rounded-[18px] bg-neutral-900 sm:min-h-[520px]">
-      <Image
-        src={afterSrc}
-        alt={afterAlt}
-        fill
-        sizes="(max-width: 1024px) 100vw, 55vw"
-        className="select-none object-cover"
-        draggable={false}
-      />
-
-      <div
-        className="absolute inset-0 overflow-hidden"
-        style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
-        aria-hidden="true"
-      >
-        <Image
-          src={beforeSrc}
-          alt={beforeAlt}
-          fill
-          sizes="(max-width: 1024px) 100vw, 55vw"
-          className="select-none object-cover"
-          draggable={false}
-        />
+    <figure className="before-after-comparison">
+      <div className="comparison-stage"
+        onPointerDown={event => {
+          if (!event.isPrimary || event.button !== 0) return;
+          dragging.current = event.pointerId;
+          event.currentTarget.setPointerCapture(event.pointerId);
+          updateFromPointer(event);
+        }}
+        onPointerMove={event => { if (dragging.current === event.pointerId) updateFromPointer(event); }}
+        onPointerUp={() => { dragging.current = null; }}
+        onPointerCancel={() => { dragging.current = null; }}
+        onLostPointerCapture={() => { dragging.current = null; }}>
+        <Image src={afterSrc} alt={afterAlt} fill sizes="(max-width: 1400px) 100vw, 1280px" className="comparison-image" draggable={false} />
+        <div className="comparison-before" style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}>
+          <Image src={beforeSrc} alt={beforeAlt} fill sizes="(max-width: 1400px) 100vw, 1280px" className="comparison-image" draggable={false} />
+        </div>
+        <div className="comparison-labels" aria-hidden="true"><span>{beforeLabel}</span><span>{afterLabel}</span></div>
+        <div className="comparison-divider" style={{ left: `${position}%` }} aria-hidden="true"><span><ChevronsLeftRight size={24} /></span></div>
+        <span className="comparison-drag-hint" aria-hidden="true">Drag to compare</span>
       </div>
-
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-black/10" />
-
-      <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-white px-4 py-2 text-xs font-extrabold text-black shadow-lg">
-        Before
-      </span>
-      <span className="pointer-events-none absolute right-4 top-4 rounded-full bg-black px-4 py-2 text-xs font-extrabold text-white shadow-lg">
-        After
-      </span>
-
-      <div
-        className="pointer-events-none absolute inset-y-0 z-10 w-px bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.16)]"
-        style={{ left: `${position}%` }}
-      >
-        <span className="before-after-handle absolute left-1/2 top-1/2 grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-4 border-white bg-black text-white shadow-[0_12px_30px_rgba(0,0,0,0.34)] transition group-hover:scale-105">
-          <ChevronsLeftRight size={20} strokeWidth={2.4} />
-        </span>
+      <div className="comparison-controls">
+        <button type="button" onClick={() => setPosition(100)} aria-label={`Show the full ${beforeLabel.toLowerCase()} image`}>{beforeLabel}</button>
+        <label className="sr-only" htmlFor={id}>Compare {beforeLabel.toLowerCase()} and {afterLabel.toLowerCase()}</label>
+        <input id={id} type="range" min={0} max={100} step={1} value={position}
+          aria-describedby={`${id}-instructions`} aria-valuetext={`${position}% of the ${beforeLabel.toLowerCase()} image visible`}
+          onChange={event => setPosition(Number(event.target.value))} />
+        <button type="button" onClick={() => setPosition(0)} aria-label={`Show the full ${afterLabel.toLowerCase()} image`}>{afterLabel}</button>
       </div>
-
-      <input
-        type="range"
-        min="0"
-        max="100"
-        step="1"
-        value={position}
-        onChange={(event) => setPosition(Number(event.target.value))}
-        aria-label="Reveal before and after home renovation"
-        aria-valuetext={`${position}% before image visible`}
-        className="before-after-range absolute inset-0 z-20 h-full w-full cursor-ew-resize opacity-0"
-      />
-
-      <p className="pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/65 px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
-        Drag to compare
-      </p>
-    </div>
+      <figcaption className="comparison-caption"><p id={`${id}-instructions`}>Drag the divider or use the slider. Use arrow keys when the slider is focused.</p>{caption && <p>{caption}</p>}</figcaption>
+    </figure>
   );
 }

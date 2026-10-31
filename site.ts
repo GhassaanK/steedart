@@ -17,7 +17,7 @@ export const site = {
     { label: "Portfolio", href: "/portfolio" },
     { label: "Gallery", href: "/gallery" },
     { label: "About", href: "/about" },
-    { label: "Kitchen Cost Calculator", href: "/#kitchen-estimate" },
+    { label: "Guides", href: "/blog" },
     { label: "Contact", href: "/contact" },
   ],
 };

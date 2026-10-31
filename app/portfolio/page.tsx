@@ -6,25 +6,25 @@ import { JsonLd } from "../JsonLd";
 import { site } from "@/site";
 
 export const metadata: Metadata = {
-  title: "Home Renovation Portfolio in Karachi",
+  title: "Residential & Commercial Interior Portfolio",
   description:
-    "Explore Steed Art home renovations, interiors, custom joinery, and room transformations across Karachi residences.",
+    "Explore Steed Art home renovations, interiors, custom joinery, and room transformations for homes and workplaces in Karachi.",
   alternates: {
     canonical: "/portfolio",
   },
   openGraph: {
-    title: "Home Renovation Portfolio in Karachi | Steed Art",
+    title: "Residential & Commercial Interior Portfolio | Steed Art",
     description:
-      "A look at complete residential renovations, interiors, and custom work by Steed Art.",
+      "A look at residential interiors, commercial fit-outs, and custom work by Steed Art.",
     url: "/portfolio",
-    images: [{ url: "/images/lounge-after.webp", width: 1536, height: 1024 }],
+    images: [{ url: "/images/profile/living-dining.webp", width: 1280, height: 960 }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Home Renovation Portfolio in Karachi | Steed Art",
+    title: "Residential & Commercial Interior Portfolio | Steed Art",
     description: "Explore Steed Art residential renovations, interiors, and custom work across Karachi.",
-    images: ["/images/lounge-after.webp"],
+    images: ["/images/profile/living-dining.webp"],
   },
 };
 
@@ -36,7 +36,7 @@ export default async function PortfolioPage() {
 
   return (
     <PageShell>
-      <main>
+      <main id="main-content">
         {projects.length ? (
           <JsonLd
             data={{

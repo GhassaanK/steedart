@@ -5,9 +5,8 @@ import { Mail } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
 import { saveEnquiry } from "../lib/cms";
 import { useCmsSettings } from "../lib/useCmsData";
-import type { KitchenEstimate } from "../KitchenCostCalculator";
 
-export function ContactForm({ estimate }: { estimate?: KitchenEstimate | null }) {
+export function ContactForm() {
   const { settings, isLoading } = useCmsSettings();
   const [form, setForm] = useState({ name: "", phone: "", email: "", budget: "", note: "" });
   const [status, setStatus] = useState("");
@@ -18,10 +17,7 @@ export function ContactForm({ estimate }: { estimate?: KitchenEstimate | null })
     setIsSaving(true);
     setStatus("");
     try {
-      await saveEnquiry({
-        ...form,
-        note: estimate ? `${form.note}\n\nCalculator estimate:\n${estimate.message}` : form.note,
-      });
+      await saveEnquiry(form);
       setForm({ name: "", phone: "", email: "", budget: "", note: "" });
       setStatus("Your enquiry has been sent.");
     } catch {
@@ -32,10 +28,10 @@ export function ContactForm({ estimate }: { estimate?: KitchenEstimate | null })
   };
 
   return (
-    <form id="project-enquiry" onSubmit={handleSubmit} className="surface-card scroll-mt-6 rounded-[22px] p-6 sm:p-8 lg:p-10">
+    <form id="project-enquiry" onSubmit={handleSubmit} className="contact-form surface-card scroll-mt-6 p-6 sm:p-8 lg:p-10">
       <p className="text-sm font-extrabold uppercase tracking-[0.24em] text-[#76563f]">Project enquiry</p>
       <h2 className="mt-5 max-w-lg text-4xl font-extrabold leading-tight">
-        Tell us what is not working, what you want changed, and what level of finish you have in mind.
+        What do you have in mind?
       </h2>
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
         <Field label="Name" value={form.name} placeholder="Your name" onChange={(value) => setForm((current) => ({ ...current, name: value }))} />
@@ -50,7 +46,7 @@ export function ContactForm({ estimate }: { estimate?: KitchenEstimate | null })
         <span className="text-sm font-extrabold text-neutral-700">Project note</span>
         <textarea required value={form.note} onChange={(event) => setForm((current) => ({ ...current, note: event.target.value }))} className="mt-2 min-h-44 w-full rounded-[14px] border border-black/10 bg-white p-4 text-sm font-medium outline-none transition focus:border-neutral-950" placeholder="Tell us about the property, rooms involved, current condition, and what you want to change" />
       </label>
-      {status ? <p className="mt-5 rounded-[14px] bg-white p-4 text-sm font-extrabold text-green-700">{status}</p> : null}
+      {status ? <p role="status" className={`mt-5 bg-white p-4 text-sm font-semibold ${status === "Your enquiry has been sent." ? "text-green-700" : "text-red-700"}`}>{status}</p> : null}
       <p className="mt-5 max-w-xl text-xs font-semibold leading-5 text-neutral-500">
         By sending this enquiry, you ask Steed Art to use the details above to
         review and respond to your project. Read our{" "}
@@ -78,7 +74,7 @@ function Field({ label, value, placeholder, onChange }: { label: string; value: 
   return (
     <label className="block">
       <span className="text-sm font-extrabold text-neutral-700">{label}</span>
-      <input required value={value} onChange={(event) => onChange(event.target.value)} className="mt-2 h-12 w-full rounded-[14px] border border-black/10 bg-white px-4 text-sm font-medium outline-none transition focus:border-neutral-950" placeholder={placeholder} />
+      <input required type={label === "Email" ? "email" : label === "Phone" ? "tel" : "text"} autoComplete={label === "Email" ? "email" : label === "Phone" ? "tel" : label === "Name" ? "name" : undefined} value={value} onChange={(event) => onChange(event.target.value)} className="mt-2 h-12 w-full rounded-[14px] border border-black/10 bg-white px-4 text-sm font-medium outline-none transition focus:border-neutral-950" placeholder={placeholder} />
     </label>
   );
 }

@@ -5,6 +5,9 @@ import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCmsGallery } from "../lib/useCmsData";
 import type { GalleryImage } from "../lib/cms";
+import { fallbackGallery } from "../lib/fallback-cms";
+import { useDialog } from "../useDialog";
+import { Reveal } from "../Reveal";
 
 const spans = [
   "lg:col-span-6 lg:row-span-2",
@@ -31,9 +34,10 @@ const sizes = [
 ];
 
 export function GalleryGrid({ initialGallery = [] }: { initialGallery?: GalleryImage[] }) {
-  const { gallery, isLoading } = useCmsGallery(initialGallery);
+  const { gallery, isLoading } = useCmsGallery(initialGallery.length ? initialGallery : fallbackGallery, true);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const activeImage = activeIndex === null ? null : gallery[activeIndex];
+  const dialogRef = useDialog(!!activeImage, () => setActiveIndex(null));
 
   const showPrevious = useCallback(() => {
     setActiveIndex((current) => {
@@ -52,9 +56,6 @@ export function GalleryGrid({ initialGallery = [] }: { initialGallery?: GalleryI
   useEffect(() => {
     if (activeIndex === null) return;
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") setActiveIndex(null);
       if (event.key === "ArrowLeft") showPrevious();
@@ -64,20 +65,19 @@ export function GalleryGrid({ initialGallery = [] }: { initialGallery?: GalleryI
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [activeIndex, showNext, showPrevious]);
 
   return (
     <>
-      <section className="mx-auto grid max-w-[1360px] auto-rows-[220px] gap-3 px-5 pb-16 sm:px-8 lg:grid-cols-12">
+      <section className="studio-wrap gallery-editorial">
         {isLoading ? (
           [0, 1, 2, 3].map((item) => (
             <article key={item} className={`animate-pulse rounded-[18px] bg-[#f4f0ea] ${spans[item % spans.length]}`} />
           ))
         ) : gallery.length ? gallery.map((image, index) => (
-          <article id={`gallery-image-${image.id}`} key={image.id} className={`relative overflow-hidden rounded-[18px] bg-neutral-900 ${spans[index % spans.length]}`}>
+          <Reveal key={image.id} delay={(index % 3) * 80} className={`gallery-tile gallery-tile-${index % 5}`}><article id={`gallery-image-${image.id}`} className="relative h-full overflow-hidden bg-neutral-900">
             <button
               type="button"
               onClick={() => setActiveIndex(index)}
@@ -89,14 +89,13 @@ export function GalleryGrid({ initialGallery = [] }: { initialGallery?: GalleryI
                 alt={image.alt || `Steed Art gallery image ${index + 1}`}
                 fill
                 sizes={sizes[index % sizes.length]}
-                quality={92}
                 className="object-cover transition duration-700 group-hover:scale-105"
               />
               <span className="pointer-events-none absolute left-1/2 top-4 z-10 -translate-x-1/2 rounded-full bg-white px-4 py-2 text-xs font-black text-neutral-950 opacity-0 shadow-xl transition group-hover:opacity-100 group-focus-visible:opacity-100">
                 Click to view full image
               </span>
             </button>
-          </article>
+          </article></Reveal>
         )) : (
           <div className="rounded-[22px] bg-[#f4f0ea] p-8 lg:col-span-12">
             <h2 className="text-3xl font-extrabold">Couldn&apos;t find gallery images.</h2>
@@ -110,7 +109,7 @@ export function GalleryGrid({ initialGallery = [] }: { initialGallery?: GalleryI
       {activeImage ? (
         <div className="fixed inset-0 z-50 bg-black/92 p-3 text-white sm:p-5" role="dialog" aria-modal="true" aria-label="Gallery image viewer">
           <button type="button" className="absolute inset-0 cursor-zoom-out" aria-label="Close image viewer" onClick={() => setActiveIndex(null)} />
-          <div className="relative flex h-full flex-col">
+          <div ref={dialogRef} className="relative flex h-full flex-col">
             <div className="relative z-10 flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <p className="truncate text-sm font-black">{activeImage.alt || "Steed Art gallery image"}</p>
@@ -134,9 +133,8 @@ export function GalleryGrid({ initialGallery = [] }: { initialGallery?: GalleryI
                 alt={activeImage.alt || "Steed Art gallery image"}
                 fill
                 sizes="100vw"
-                quality={96}
                 className="object-contain"
-                priority
+                loading="eager"
               />
             </div>
 

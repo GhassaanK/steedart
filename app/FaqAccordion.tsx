@@ -55,6 +55,7 @@ export function FaqAccordion() {
                 </button>
                 <div
                   id={answerId}
+                  inert={!isOpen}
                   className={`grid transition-[grid-template-rows] duration-300 ${
                     isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                   }`}

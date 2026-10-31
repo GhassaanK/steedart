@@ -1,106 +1,20 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Metadata } from "next";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { PageShell } from "../components";
-import { images, process } from "../data";
-
+import { Reveal } from "../Reveal";
+import { profileImages, profileProcess } from "../profile-data";
 export const metadata: Metadata = {
-  title: "Complete Home Renovation Studio in Karachi",
-  description:
-    "Steed Art is a design-led home renovation studio in Karachi, managing complete residential transformations from planning and civil work to interiors and handover.",
-  alternates: {
-    canonical: "/about",
-  },
-  openGraph: {
-    title: "Steed Art | Complete Home Renovation Studio in Karachi",
-    description:
-      "Meet the Karachi studio delivering design-led, end-to-end home renovations.",
-    url: "/about",
-    images: [{ url: "/images/home-hero.webp", width: 1536, height: 1024 }],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Steed Art | Complete Home Renovation Studio in Karachi",
-    description: "Meet the Karachi studio behind considered, end-to-end residential renovations.",
-    images: ["/images/home-hero.webp"],
-  },
+  title: "Interior Design & Renovation Studio in Karachi",
+  description: "Steed Art brings interior design and execution together for residential and commercial spaces in Karachi.",
+  alternates: { canonical: "/about" },
+  openGraph: { title: "About Steed Art", description: "Residential and commercial interior design and turnkey renovation in Karachi.", url: "/about", images: [profileImages.living] },
 };
-
 export default function AboutPage() {
-  return (
-    <PageShell>
-      <main>
-        <section className="mx-auto grid max-w-[1360px] gap-4 px-5 py-8 sm:px-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="relative min-h-[680px] overflow-hidden rounded-[22px]">
-            <Image src={images.hero} alt="Connected living and dining spaces renovated by Steed Art" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" priority />
-          </div>
-          <div className="surface-card flex min-h-[680px] flex-col justify-between rounded-[22px] p-7 lg:p-10">
-            <div>
-              <p className="text-sm font-extrabold uppercase tracking-[0.24em] text-[#76563f]">
-                About Steed Art
-              </p>
-              <h1 className="mt-6 text-6xl font-extrabold leading-[0.98] tracking-normal sm:text-7xl">
-                Luxury, but with a pulse.
-              </h1>
-            </div>
-            <div className="grid gap-5 text-sm font-medium leading-7 text-neutral-600">
-              <p>
-                Steed Art is a Karachi renovation studio for homeowners
-                who want their homes to feel composed, premium, personal, and
-                genuinely easy to live in.
-              </p>
-              <p>
-                We are not interested in empty minimalism. A Steed Art home has
-                proportion, storage, craft, warmth, and small moments that make
-                people look twice.
-              </p>
-              <p>
-                We take on complete home renovations, bringing planning, civil
-                work, services, interior design, custom joinery, finishes, and
-                installation under one considered direction from beginning to
-                handover.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto grid max-w-[1360px] gap-4 px-5 py-12 sm:px-8 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <p className="text-sm font-extrabold uppercase tracking-[0.24em] text-[#76563f]">What we believe</p>
-            <h2 className="mt-5 max-w-md text-5xl font-extrabold leading-[1] tracking-normal">
-              A home should reveal its thought slowly.
-            </h2>
-          </div>
-          <div className="grid border-t border-neutral-300 md:grid-cols-3">
-            {["Nothing should feel accidental.", "Every room should belong together.", "Premium should still feel human."].map((line, index) => (
-              <div
-                key={line}
-                className="border-b border-neutral-300 py-7 md:border-b-0 md:border-r md:px-7 md:first:pl-0 md:last:border-r-0 md:last:pr-0"
-              >
-                <p className="text-xs font-extrabold text-[#76563f]">
-                  {String(index + 1).padStart(2, "0")}
-                </p>
-                <p className="mt-8 text-3xl font-extrabold leading-tight">{line}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-[1360px] px-5 py-12 sm:px-8">
-          <div className="grid overflow-hidden rounded-[22px] bg-black text-white lg:grid-cols-4">
-            {process.map((step) => {
-              const Icon = step.icon;
-              return (
-                <div key={step.title} className="p-6 lg:p-8">
-                  <Icon />
-                  <h3 className="mt-8 text-2xl font-extrabold">{step.title}</h3>
-                  <p className="mt-4 text-sm font-medium leading-7 text-white/62">{step.copy}</p>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      </main>
-    </PageShell>
-  );
+  return <PageShell><main id="main-content"><section className="studio-wrap interior-heading"><Reveal><p className="eyebrow">The studio / Karachi</p><h1 className="interior-title">A complete approach<br />to <em>interiors.</em></h1></Reveal><Reveal delay={100}><p>Steed Art is a Karachi-based interior design and renovation business serving homeowners and commercial clients. We bring the design and execution into one coordinated project.</p><Link href="/contact" className="text-link">Start a conversation <ArrowUpRight size={18} /></Link></Reveal></section><Reveal className="about-wide-photo"><Image src={profileImages.lounge} alt="Living space with coordinated seating, decorative wall mouldings and dining furniture, from the Steed Art company profile" fill preload sizes="100vw" /></Reveal><section className="studio-wrap section-space studio-intro"><Reveal><p className="eyebrow">Our direction</p></Reveal><Reveal><h2 className="display-heading">Good design should<br /><span className="muted-word">work beautifully.</span></h2><div className="intro-copy"><p>We consider the way a space will be used before selecting the finishes that define it. Layout, storage and lighting are part of the same design conversation.</p><p>Our purpose is to make renovation easier to manage, with a clear connection between your brief and the finished space.</p></div></Reveal></section><section className="services-section section-space"><div className="studio-wrap"><Reveal className="section-heading"><div><p className="eyebrow">What we bring together</p><h2 className="display-heading">Homes. Workplaces.<br />The details in between.</h2></div><p className="section-heading-aside">After the grey structure, we take the remaining interior work forward through one agreed project scope.</p></Reveal><div className="about-capabilities">{[
+    ["Residential interiors", "Complete home renovations and focused upgrades, planned around the people who live there.", profileImages.bedroom],
+    ["Commercial interiors", "Office interiors and commercial fit-outs with coordinated layouts, furniture and architectural finishes.", profileImages.office],
+    ["Custom work", "Joinery, furniture, decorative screens, railings and fabrication made around the space.", profileImages.joinery],
+  ].map(([title, copy, image], i) => <Reveal key={title} delay={i * 100}><div className="about-capability-image"><Image src={image} alt={title + " from the Steed Art company profile"} fill sizes="(max-width: 700px) 100vw, 33vw" /></div><h3>{title}</h3><p>{copy}</p></Reveal>)}</div></div></section><section className="studio-wrap section-space"><Reveal className="section-heading"><div><p className="eyebrow">Project delivery</p><h2 className="display-heading">A clear route<br />to completion.</h2></div></Reveal><div className="process-track">{profileProcess.map(([title, copy], i) => <Reveal key={title} delay={i * 90}><div className="process-step"><div className="process-marker"><span>0{i + 1}</span><ArrowRight size={16} /></div><h3>{title}</h3><p>{copy}</p></div></Reveal>)}</div></section></main></PageShell>;
 }

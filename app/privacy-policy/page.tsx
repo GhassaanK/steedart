@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     description:
       "How Steed Art handles website, enquiry, communication, and project information.",
     url: "/privacy-policy",
-    images: [{ url: "/images/home-hero.webp", width: 1536, height: 1024 }],
+    images: [{ url: "/images/profile/living-dining.webp", width: 1280, height: 960 }],
     type: "website",
   },
   twitter: {
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "Privacy Policy | Steed Art",
     description:
       "How Steed Art handles website, enquiry, communication, and project information.",
-    images: ["/images/home-hero.webp"],
+    images: ["/images/profile/living-dining.webp"],
   },
 };
 
@@ -43,7 +43,7 @@ export default async function PrivacyPolicyPage() {
 
   return (
     <PageShell>
-      <main>
+      <main id="main-content">
         <JsonLd
           data={{
             "@context": "https://schema.org",
@@ -126,7 +126,7 @@ export default async function PrivacyPolicyPage() {
               <h3>Information you choose to provide</h3>
               <ul>
                 <li>Your name, phone number, email address, and preferred contact method.</li>
-                <li>Your approximate project budget, project notes, measurements, and calculator estimate.</li>
+                <li>Your approximate project budget, project notes, and any measurements you include.</li>
                 <li>Photographs, plans, room dimensions, location details, material preferences, and other information you share during consultation or project planning.</li>
                 <li>Messages and correspondence sent through email, WhatsApp, telephone, Facebook, or Instagram.</li>
               </ul>
@@ -199,12 +199,6 @@ export default async function PrivacyPolicyPage() {
                 is used for studio-managed visual assets, not as the destination
                 for enquiry-form fields. Project imagery selected for public
                 display is uploaded only where its use is appropriate.
-              </ServiceRow>
-              <ServiceRow title="YouTube" href="https://policies.google.com/privacy">
-                The cost calculator includes an optional measurement video from
-                YouTube using its privacy-enhanced domain. The video frame is
-                loaded only after you choose to open it. Google may then receive
-                technical information about that interaction.
               </ServiceRow>
               <ServiceRow title="WhatsApp and social platforms">
                 If you choose a WhatsApp, Facebook, or Instagram link, the
@@ -293,7 +287,7 @@ function PolicySection({ id, number, title, children }: { id: string; number: st
         <span className="grid h-11 w-11 place-items-center rounded-full bg-black text-xs font-extrabold text-white">{number}</span>
         <div className="policy-copy min-w-0">
           <h2 className="text-4xl font-extrabold leading-tight sm:text-5xl">{title}</h2>
-          <div className="mt-7 grid gap-5 text-[15px] font-medium leading-8 text-neutral-600">{children}</div>
+          <div className="mt-7 grid gap-5 text-base font-medium leading-8 text-neutral-600">{children}</div>
         </div>
       </div>
     </section>

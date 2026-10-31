@@ -1,13 +1,13 @@
 export const faqs = [
   {
-    question: "Do you only renovate complete homes?",
+    question: "Do you work on homes and commercial spaces?",
     answer:
-      "Complete home renovation is now our primary service. We may consider a focused room or custom-work project when it has a clear design scope and is the right fit for the studio.",
+      "Yes. Steed Art works on residential interiors and commercial fit-outs, including offices, cabins, meeting rooms and shared spaces. The scope can cover individual rooms or complete interiors.",
   },
   {
-    question: "Does the calculator estimate a complete renovation?",
+    question: "How do I get a renovation quotation?",
     answer:
-      "No. The calculator is a focused planning tool for selected kitchen cabinetry or flooring. A complete renovation is scoped after we understand the property, site condition, design direction, and full extent of work.",
+      "Send us the property details, photographs or plans if available, and a description of the work you have in mind. We discuss the brief, assess the relevant site information and define the scope before preparing a project quotation.",
   },
   {
     question: "What if I do not know my measurements?",

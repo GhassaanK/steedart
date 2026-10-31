@@ -4,10 +4,10 @@ import { onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import { database } from "./firebase";
 import { cmsPaths, type CmsProject, type CmsReview, type Enquiry, type GalleryImage, objectToArray, type SiteSettings } from "./cms";
-import { fallbackSettings } from "./fallback-cms";
+import { fallbackSettings, fallbackProjects, fallbackGallery } from "./fallback-cms";
 import { normalizeProjectImages, normalizeSiteSettings } from "./normalize-cms";
 
-export function useCmsProjects(initialProjects: CmsProject[] = []) {
+export function useCmsProjects(initialProjects: CmsProject[] = [], useProfileFallback = false) {
   const [projects, setProjects] = useState<CmsProject[]>(initialProjects);
   const [isLoading, setIsLoading] = useState(initialProjects.length === 0);
 
@@ -16,25 +16,25 @@ export function useCmsProjects(initialProjects: CmsProject[] = []) {
       const nextProjects = objectToArray<CmsProject>(snapshot.val())
         .map(normalizeProjectImages)
         .sort((a, b) => a.order - b.order);
-      setProjects(nextProjects);
+      setProjects(nextProjects.length || !useProfileFallback ? nextProjects : fallbackProjects);
       setIsLoading(false);
-    });
-  }, []);
+    }, () => setIsLoading(false));
+  }, [useProfileFallback]);
 
   return { projects, isLoading };
 }
 
-export function useCmsGallery(initialGallery: GalleryImage[] = []) {
+export function useCmsGallery(initialGallery: GalleryImage[] = [], useProfileFallback = false) {
   const [gallery, setGallery] = useState<GalleryImage[]>(initialGallery);
   const [isLoading, setIsLoading] = useState(initialGallery.length === 0);
 
   useEffect(() => {
     return onValue(ref(database, cmsPaths.gallery), (snapshot) => {
       const nextGallery = objectToArray<GalleryImage>(snapshot.val()).sort((a, b) => a.order - b.order);
-      setGallery(nextGallery);
+      setGallery(nextGallery.length || !useProfileFallback ? nextGallery : fallbackGallery);
       setIsLoading(false);
-    });
-  }, []);
+    }, () => setIsLoading(false));
+  }, [useProfileFallback]);
 
   return { gallery, isLoading };
 }
@@ -81,7 +81,7 @@ export function useCmsSettings(initialSettings?: SiteSettings) {
         normalizeSiteSettings({ ...fallbackSettings, ...(snapshot.val() || {}) }),
       );
       setIsLoading(false);
-    });
+    }, () => setIsLoading(false));
   }, []);
 
   return { settings, isLoading };

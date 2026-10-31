@@ -7,7 +7,7 @@ export function GalleryIntro({ initialSettings }: { initialSettings?: SiteSettin
   const { settings, isLoading } = useCmsSettings(initialSettings);
 
   return (
-    <section className="mx-auto max-w-[1360px] px-5 py-8 sm:px-8">
+    <section className="studio-wrap gallery-intro">
       <div className="flex flex-col gap-4 py-6 sm:flex-row sm:items-end sm:justify-between">
         {isLoading ? (
           <>
@@ -17,8 +17,8 @@ export function GalleryIntro({ initialSettings }: { initialSettings?: SiteSettin
         ) : (
           <>
             <div>
-              <p className="mb-4 text-sm font-extrabold uppercase tracking-[0.24em] text-[#76563f]">In the studio</p>
-              <h1 className="text-5xl font-extrabold leading-none sm:text-7xl">
+              <p className="eyebrow">The gallery / Spaces & details</p>
+              <h1 className="interior-title">
                 {settings.galleryHeading}
               </h1>
             </div>
@@ -26,8 +26,8 @@ export function GalleryIntro({ initialSettings }: { initialSettings?: SiteSettin
               <p className="text-sm font-medium leading-7 text-neutral-500">
                 {settings.galleryCopy}
               </p>
-              <a href="/contact" className="mt-5 inline-flex h-11 items-center rounded-full bg-black px-5 text-sm font-extrabold text-white">
-                Book a consult
+              <a href="/contact" className="text-link mt-5">
+                Discuss your space
               </a>
             </div>
           </>

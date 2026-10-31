@@ -30,7 +30,7 @@ export function HomePortfolioPreview({ initialProjects = [] }: { initialProjects
               {project.afterImage ? (
                 <Image src={project.afterImage} alt={project.title} fill sizes="110px" className="object-cover" />
               ) : (
-                <span className="grid h-full place-items-center p-2 text-center text-[10px] font-extrabold uppercase tracking-[0.16em] text-white/45">
+                <span className="grid h-full place-items-center p-2 text-center text-xs font-extrabold uppercase tracking-[0.16em] text-white/45">
                   Couldn&apos;t find image
                 </span>
               )}
